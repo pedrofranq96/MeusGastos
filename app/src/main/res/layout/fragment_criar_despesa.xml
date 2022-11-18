@@ -5,6 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".main.ui.CriarDespesasFragment"
     >
 
     <LinearLayout
@@ -29,7 +30,7 @@
 
 
             <EditText
-                android:id="@+id/editTextNumber"
+                android:id="@+id/inputValorDespesa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -41,7 +42,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/inputNomeDespesa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -51,17 +52,17 @@
             android:autofillHints="Nome" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName3"
+            android:id="@+id/inputDataDespesa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="15dp"
             android:layout_marginHorizontal="20dp"
             android:inputType="date"
-            android:text="Data"
+            android:text="dd/mm/yyyy"
             android:autofillHints="Nome" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName4"
+            android:id="@+id/inputDescricaoDespesa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="15dp"
@@ -70,7 +71,7 @@
             android:text="Descrição"
             android:autofillHints="Nome" />
         <EditText
-            android:id="@+id/editTextTextPersonName5"
+            android:id="@+id/inputCategoriaDespesa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="15dp"
@@ -80,6 +81,7 @@
             android:autofillHints="Nome" />
 
         <Button
+            android:id="@+id/btnCriarDespesa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
