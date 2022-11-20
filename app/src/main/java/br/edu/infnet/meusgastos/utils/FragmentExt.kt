@@ -22,6 +22,9 @@ fun Fragment.getTextInput(editText: EditText): String {
 fun Fragment.getIntInput(editText: EditText): Int {
     return editText.text.toString().toInt()
 }
+fun Fragment.getFloatInput(editText: EditText): Float {
+    return editText.text.toString().toFloat()
+}
 
 fun Fragment.getDoubleInput(editText: EditText): Double {
     return editText.text.toString().toDouble()

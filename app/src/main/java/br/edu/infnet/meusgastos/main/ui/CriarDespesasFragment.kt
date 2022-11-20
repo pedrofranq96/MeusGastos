@@ -12,6 +12,7 @@ import br.edu.infnet.meusgastos.databinding.FragmentCriarDespesaBinding
 import br.edu.infnet.meusgastos.models.Despesa
 import br.edu.infnet.meusgastos.utils.*
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class CriarDespesasFragment : Fragment() {
 
@@ -30,6 +31,7 @@ class CriarDespesasFragment : Fragment() {
     ): View? {
         _binding = FragmentCriarDespesaBinding.inflate(inflater, container, false)
         val view = binding.root
+        setup()
         return view
     }
 
@@ -65,12 +67,17 @@ class CriarDespesasFragment : Fragment() {
     @SuppressLint("NewApi")
     private fun getDespesaFromInputs(): Despesa {
 
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+
         binding.apply {
             val data = LocalDate.parse(inputDataDespesa.toString())
+            //val data = LocalDate.parse(inputDataDespesa.toString(), formatter)
+
             Log.d("Data Despesa: ", data.toString())
+
             return Despesa(
                 nome = getTextInput(inputNomeDespesa) ,
-                valor = getDoubleInput(inputValorDespesa),
+                valor = getFloatInput(inputValorDespesa),
                 data = data,
                 descricao =  getTextInput(inputDescricaoDespesa),
                 categoriaId = getIntInput(inputCategoriaDespesa)
