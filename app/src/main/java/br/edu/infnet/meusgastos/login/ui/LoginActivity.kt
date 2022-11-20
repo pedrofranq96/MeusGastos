@@ -29,13 +29,12 @@ class LoginActivity : AppCompatActivity(){
     override fun onStart() {
         super.onStart()
         if(viewModel.isLoggedIn()){
-            startMainActivity()
+            startHomeActivity()
         }
     }
 
 
-
-    fun startMainActivity(){
+     fun startHomeActivity(){
         startActivity(Intent(this, HomeActivity::class.java))
         finish()
     }

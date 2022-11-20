@@ -14,9 +14,18 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!-- Coloquei esse style para testar -->
     <style name="Theme.MeusGastos.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="colorOnSecondary">@color/black</item>
     </style>
 
     <style name="Theme.MeusGastos.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.viewpager.widget.ViewPager
 import br.edu.infnet.meusgastos.R
 import br.edu.infnet.meusgastos.ViewPagerAdapter
+import br.edu.infnet.meusgastos.databinding.ActivityMainBinding
 import br.edu.infnet.meusgastos.login.ui.LoginActivity
 
 class MainActivity : AppCompatActivity() {
@@ -17,9 +18,13 @@ class MainActivity : AppCompatActivity() {
     lateinit var imageList: List<Int>
     lateinit var pular: Button
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         // initializing variables
         // of below line with their id.
@@ -40,12 +45,15 @@ class MainActivity : AppCompatActivity() {
         // adapter to our view pager.
         viewPager.adapter = viewPagerAdapter
 
-        pular.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-
+        pular.setOnClickListener(){
+            startLoginActivity()
         }
 
     }
 
+    private fun startLoginActivity() {
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
 
 }
