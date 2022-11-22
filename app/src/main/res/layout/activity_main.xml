@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".main.ui.MainActivity">
 
     <!--on below line we are adding view pager -->
     <androidx.viewpager.widget.ViewPager
@@ -15,5 +15,17 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:layout_margin="10dp" />
+
+    <Button
+        android:id="@+id/btn_pular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+
+        android:text="Pular" />
 
 </RelativeLayout>

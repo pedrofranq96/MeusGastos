@@ -15,20 +15,25 @@ import com.google.firebase.ktx.Firebase
 const val TAG = "DespesasFirebase"
 
 class DespesasRepository private constructor(){
+
     companion object {
 
         lateinit var auth: FirebaseAuth
 
         lateinit var db: FirebaseFirestore
 
-        lateinit var colecaoDespesas : CollectionReference
+        lateinit var colecaoDespesas: CollectionReference
+
 
         private var INSTANCE: DespesasRepository? = null
         fun initialize() {
             if (INSTANCE == null) {
                 INSTANCE = DespesasRepository()
             }
+
+            //Autorização firebase(cadastro e login)
             auth = Firebase.auth
+
             // Banco de dados Firestore
             db = Firebase.firestore
 
@@ -42,7 +47,7 @@ class DespesasRepository private constructor(){
             return INSTANCE
                 ?: throw IllegalStateException("DespesasRepository deve ser inicializado.")
         }
-        
+    }
         // Auth /////////////////
 
         fun getCurrentUser() = auth.currentUser
@@ -76,7 +81,7 @@ class DespesasRepository private constructor(){
 
         // FireStore ///////////////////////////////////////////////////////////////////////////////////
 
-        fun cadastrarDespesa( despesa: Despesa): Task<DocumentReference> {
+        fun criarDespesa( despesa: Despesa): Task<DocumentReference> {
             return  colecaoDespesas.add(despesa)
         }
 
@@ -98,5 +103,5 @@ class DespesasRepository private constructor(){
             }
         }
         
-    }
+
 }

@@ -5,6 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".main.ui.CriarDespesasFragment"
     >
 
     <LinearLayout
@@ -25,11 +26,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
 
-
-            <EditText
-                android:id="@+id/editTextNumber"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputValorDespesa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -40,46 +42,81 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Nome"
-            android:layout_marginVertical="15dp"
-            android:layout_marginHorizontal="20dp"
-            android:autofillHints="Nome" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
 
-        <EditText
-            android:id="@+id/editTextTextPersonName3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="15dp"
-            android:layout_marginHorizontal="20dp"
-            android:inputType="date"
-            android:text="Data"
-            android:autofillHints="Nome" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputNomeDespesa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:layout_marginVertical="15dp"
+                android:layout_marginHorizontal="20dp"
+                android:hint="Nome:"
+                />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName4"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="15dp"
-            android:layout_marginHorizontal="20dp"
-            android:inputType="text"
-            android:text="Descrição"
-            android:autofillHints="Nome" />
-        <EditText
-            android:id="@+id/editTextTextPersonName5"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputDataDespesa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                android:layout_marginHorizontal="20dp"
+                android:hint="Data:"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="15dp"
-            android:layout_marginHorizontal="20dp"
-            android:inputType="textPersonName"
-            android:text="Categoria"
-            android:autofillHints="Nome" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputDescricaoDespesa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                android:layout_marginHorizontal="20dp"
+                android:inputType="text"
+                android:hint="Descrição"
+
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputCategoriaDespesa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="15dp"
+                android:layout_marginHorizontal="20dp"
+                android:inputType="number"
+                android:hint="Categoria"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
+            android:id="@+id/btnCriarDespesa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"

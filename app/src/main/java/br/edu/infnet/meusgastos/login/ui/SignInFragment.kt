@@ -2,25 +2,26 @@ package br.edu.infnet.meusgastos.login.ui
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import br.edu.infnet.meusgastos.databinding.FragmentSignOnBinding
+import br.edu.infnet.meusgastos.R
+import br.edu.infnet.meusgastos.databinding.FragmentSignInBinding
 import br.edu.infnet.meusgastos.main.ui.MainActivity
 import br.edu.infnet.meusgastos.utils.getTextInput
+import br.edu.infnet.meusgastos.utils.nav
 import br.edu.infnet.meusgastos.utils.toast
 
-class SignOnFragment : Fragment(){
-
-    val viewModel by activityViewModels<LoginViewModel> ()
+class SignInFragment : Fragment() {
+    val viewModel by activityViewModels<LoginViewModel>()
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // Usar a vinculação de visualizações em fragmentos
     // https://developer.android.com/topic/libraries/view-binding?hl=pt-br#fragments
 
-    private var _binding: FragmentSignOnBinding? = null
+    private var _binding: FragmentSignInBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -30,11 +31,10 @@ class SignOnFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSignOnBinding.inflate(inflater, container, false)
+        _binding = FragmentSignInBinding.inflate(inflater, container, false)
         val view = binding.root
 
         setup()
-
         return view
     }
 
@@ -45,56 +45,49 @@ class SignOnFragment : Fragment(){
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Setup ///////////////////////////////////////////////////////////////////////////////////////
+    // setup ///////////////////////////////////////////////////////////////////////////////////////
 
-    private fun setup(){
+    private fun setup() {
         setupClickListeners()
     }
 
     private fun setupClickListeners() {
         binding.apply {
+
+            btnSignIn.setOnClickListener {
+                onSignInClick()
+            }
+
             btnSignOn.setOnClickListener {
-
                 onSignOnClick()
-
-
             }
+
         }
     }
 
 
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Eventos de clique ///////////////////////////////////////////////////////////////////////////
     private fun onSignOnClick() {
-
-        binding.apply {
-            val email = getTextInput(inputEmail)
-            val password = getTextInput(inputPassword)
-            val confirmPassword = getTextInput(inputConfirmPassword)
-
-            if ( (password == confirmPassword) && password.length > 5){
-                signOn(email, password)
-            }
-        }
-
+        nav(R.id.action_signInFragment_to_signOnFragment)
     }
 
+    private fun onSignInClick() {
+        val email = getTextInput(binding.inputEmail)
+        val password = getTextInput(binding.inputPassword)
+        signIn(email, password)
+
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    fun signOn(email: String, password: String){
-        viewModel.signOn(email, password)
+    private fun signIn(email: String, password: String){
+        viewModel.login(email, password)
             .addOnSuccessListener {
-                toast("Cadastrado com Sucesso")
+                toast("Logado com Sucesso")
                 startMainActivity()
             }
             .addOnFailureListener {
-                toast("Falha ao cadastrar\n${it.message}")
+                toast("Falha ao Logar\n${it.message}")
             }
     }
 

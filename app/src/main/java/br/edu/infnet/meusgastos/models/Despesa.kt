@@ -1,11 +1,11 @@
 package br.edu.infnet.meusgastos.models
 
-import java.util.Date
+import java.time.LocalDate
 
 data class Despesa(
-    val nome : String = "",
-    val valor : Number = 0,
-    val data : Date,
-    val descricao : String = "",
-    val categoriaId : Int = 0
+    val nome: String = "",
+    val valor: Float = 0F,
+    val data: String = "",
+    val descricao: String = "",
+    val categoriaId: Int = 0
 )
