@@ -1,6 +1,7 @@
 package br.edu.infnet.meusgastos.main.ui
 
 import android.annotation.SuppressLint
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import br.edu.infnet.meusgastos.models.Despesa
 import br.edu.infnet.meusgastos.utils.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+
 
 class CriarDespesasFragment : Fragment() {
 
@@ -64,21 +66,27 @@ class CriarDespesasFragment : Fragment() {
     //Testar se o create funciona assim
 
 
+
+
     @SuppressLint("NewApi")
     private fun getDespesaFromInputs(): Despesa {
 
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
 
         binding.apply {
-            val data = LocalDate.parse(inputDataDespesa.toString())
+            Log.e("Nome: ", inputNomeDespesa.text.toString())
+            Log.e("Valor: ", inputValorDespesa.text.toString())
+            Log.e("Descricao: ", inputDescricaoDespesa.text.toString())
+            Log.e("Data Despesa(input): ", inputDataDespesa.text.toString())
+            val data = LocalDate.parse(inputDataDespesa.text.toString(), formatter)
             //val data = LocalDate.parse(inputDataDespesa.toString(), formatter)
 
-            Log.d("Data Despesa: ", data.toString())
+            Log.e("Data Despesa: ", data.toString())
 
             return Despesa(
                 nome = getTextInput(inputNomeDespesa) ,
                 valor = getFloatInput(inputValorDespesa),
-                data = data,
+                data = data.toString(),
                 descricao =  getTextInput(inputDescricaoDespesa),
                 categoriaId = getIntInput(inputCategoriaDespesa)
             )

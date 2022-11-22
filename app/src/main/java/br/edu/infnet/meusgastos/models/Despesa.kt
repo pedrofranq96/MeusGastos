@@ -5,7 +5,7 @@ import java.time.LocalDate
 data class Despesa(
     val nome: String = "",
     val valor: Float = 0F,
-    val data: LocalDate,
+    val data: String = "",
     val descricao: String = "",
     val categoriaId: Int = 0
 )
