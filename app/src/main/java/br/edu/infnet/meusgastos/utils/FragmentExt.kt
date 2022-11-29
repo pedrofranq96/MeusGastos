@@ -4,7 +4,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import java.util.Date
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 fun Fragment.nav(id: Int){
     findNavController().navigate(id)
@@ -38,3 +41,7 @@ fun Fragment.toast(msg: String){
         Toast.LENGTH_SHORT
     ).show()
 }
+
+//fun String.stringToDate(format: String = "yyyy-MM-dd"): String =
+    //SimpleDateFormat(format, Locale.getDefault()).parse(this).toString()
+
