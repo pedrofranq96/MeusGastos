@@ -18,6 +18,8 @@ import java.time.format.DateTimeFormatter
 
 class CriarDespesasFragment : Fragment() {
 
+    val TAG = "CriarDespesas"
+
     val viewModel by activityViewModels<MainViewModel>()
 
     private var _binding: FragmentCriarDespesaBinding? = null
@@ -57,6 +59,7 @@ class CriarDespesasFragment : Fragment() {
                 navUp()
             }
             .addOnFailureListener { e ->
+                Log.e(TAG, e.toString())
                 toast("Falha ao criar Despesa")
             }
     }
@@ -67,13 +70,18 @@ class CriarDespesasFragment : Fragment() {
 
 
 
-
+    //Criar a formatação do input na view!!!
     @SuppressLint("NewApi")
     private fun getDespesaFromInputs(): Despesa {
 
-        val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        // 22/04/2002
         binding.apply {
+            when(inputDataDespesa.length()){
+                2 -> "${inputDataDespesa}/"
+                5 -> "${inputDataDespesa}/"
+                11 -> inputDataDespesa.text.toString().substring(0,10)
+            }
             Log.e("Nome: ", inputNomeDespesa.text.toString())
             Log.e("Valor: ", inputValorDespesa.text.toString())
             Log.e("Descricao: ", inputDescricaoDespesa.text.toString())
