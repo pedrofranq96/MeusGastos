@@ -7,13 +7,13 @@
     tools:context=".main.ui.DashboardFragment"
     >
 
-
     <TextView
         android:id="@+id/tv_total_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Total"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:textSize="18sp"
         android:text="Valor total dos gastos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +47,9 @@
         android:layout_marginTop="15dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_redirectCriarDespesa"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_total_despesas" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_total_despesas"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
