@@ -1,6 +1,7 @@
 package br.edu.infnet.meusgastos.main.ui
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import br.edu.infnet.meusgastos.models.Despesa
 import br.edu.infnet.meusgastos.utils.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class CriarDespesasFragment : Fragment() {
@@ -47,6 +49,10 @@ class CriarDespesasFragment : Fragment() {
     private fun setupClickListeners() {
         binding.btnCriarDespesa.setOnClickListener {
             onCriarClick()
+
+        }
+        binding.inputDataDespesa.setOnClickListener {
+            onDatePickerClick()
         }
     }
 
@@ -82,10 +88,10 @@ class CriarDespesasFragment : Fragment() {
                 5 -> "${inputDataDespesa}/"
                 11 -> inputDataDespesa.text.toString().substring(0,10)
             }
-            Log.e("Nome: ", inputNomeDespesa.text.toString())
-            Log.e("Valor: ", inputValorDespesa.text.toString())
-            Log.e("Descricao: ", inputDescricaoDespesa.text.toString())
-            Log.e("Data Despesa(input): ", inputDataDespesa.text.toString())
+            //Log.e("Nome: ", inputNomeDespesa.text.toString())
+            //Log.e("Valor: ", inputValorDespesa.text.toString())
+            //Log.e("Descricao: ", inputDescricaoDespesa.text.toString())
+            //Log.e("Data Despesa(input): ", inputDataDespesa.text.toString())
             val data = LocalDate.parse(inputDataDespesa.text.toString(), formatter)
             //val data = LocalDate.parse(inputDataDespesa.toString(), formatter)
 
@@ -110,6 +116,45 @@ class CriarDespesasFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
+    fun onDatePickerClick() {
+        val cal = Calendar.getInstance()
+
+        // Interface passada para dentro do DatePickerDialog que recupera a data selecionada:
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                // Comando que passa a data par ao layout:
+                setInitialDate(cal)
+            }
+        callDatePicker(dateSetListener)
+    }
+
+    fun callDatePicker(dateSetListener: DatePickerDialog.OnDateSetListener?) {
+        val cal = Calendar.getInstance()
+        val datePicker =
+            DatePickerDialog(
+                requireContext(),
+                //android.R.style.Theme_Holo_Light_Dialog,
+                dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            )
+        datePicker.show()
+    }
+
+    // Comando que passa a data par ao layout:
+    fun setInitialDate(cal: Calendar) {
+        val myFormat = "dd/MM/yyyy"
+        val sdf = java.text.SimpleDateFormat(myFormat)
+        binding.inputDataDespesa.setText("${sdf.format(cal.time)}")
+    }
+
 
 
 }

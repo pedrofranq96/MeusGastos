@@ -1,13 +1,17 @@
 package br.edu.infnet.meusgastos.main.ui.adapters
 
+import android.icu.text.SimpleDateFormat
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.infnet.meusgastos.databinding.DespesaListItemBinding
 import br.edu.infnet.meusgastos.databinding.FragmentDashboardBinding
 import br.edu.infnet.meusgastos.models.DespesaComId
+
 
 class DespesaComIdAdapter(val listener: DespesaComIdListener) :
     ListAdapter<
@@ -27,12 +31,15 @@ class DespesaComIdAdapter(val listener: DespesaComIdListener) :
             return ViewHolder.from(parent, listener)
         }
 
+
+
         class ViewHolder private constructor(
             val binding: DespesaListItemBinding,
             val listener: DespesaComIdListener
         ) : RecyclerView.ViewHolder(binding.root) {
             fun bind(item: DespesaComId, position: Int) {
                 binding.apply {
+
                     tvRvNome.text = item.nome
                     tvRvValor.text = item.valor.toString()
                     tvRvData.text = item.data
@@ -70,6 +77,8 @@ class DespesaComIdDiffCallback : DiffUtil.ItemCallback<DespesaComId>() {
         return oldItem == newItem
     }
 }
+
+
 
     interface DespesaComIdListener {
         fun onEditClick(despesa: DespesaComId)
