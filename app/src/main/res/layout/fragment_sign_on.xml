@@ -33,9 +33,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="24dp"
+            app:startIconDrawable="@drawable/ic_email_24"
 
             app:boxBackgroundColor="@color/white"
-            app:hintTextColor="@color/purple_500"
+            app:hintTextColor="@color/primaryColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_logo">
@@ -47,8 +48,8 @@
                 android:hint="E-mail"
                 android:textSize="18sp"
                 android:inputType="textEmailAddress"
-                android:textColorHint="@color/purple_500"
-                android:textColor="@color/purple_500" />
+                android:textColorHint="@color/primaryColor"
+                android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -56,10 +57,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_senha_24"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
             app:boxBackgroundColor="@color/white"
-            app:hintTextColor="@color/purple_500"
+            app:hintTextColor="@color/primaryColor"
+            app:errorTextColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_email">
@@ -71,8 +74,8 @@
                 android:hint="Password"
                 android:textSize="18sp"
                 android:inputType="textPassword"
-                android:textColor="@color/purple_500"
-                android:textColorHint="@color/purple_500" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/primaryColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -80,10 +83,11 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_senha_24"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
             app:boxBackgroundColor="@color/white"
-            app:hintTextColor="@color/purple_500"
+            app:hintTextColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_password">
@@ -95,8 +99,8 @@
                 android:hint="Confirme Password"
                 android:textSize="18sp"
                 android:inputType="textPassword"
-                android:textColor="@color/purple_500"
-                android:textColorHint="@color/purple_500"  />
+                android:textColor="@color/black"
+                android:textColorHint="@color/primaryColor"  />
         </com.google.android.material.textfield.TextInputLayout>
 
 
