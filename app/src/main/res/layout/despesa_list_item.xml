@@ -9,6 +9,7 @@
     android:layout_gravity="fill_horizontal"
     android:layout_marginVertical="5dp"
     android:layout_marginHorizontal="5dp"
+    android:background="@drawable/rounded_corner"
     >
     <TextView
         android:id="@+id/tv_rvNome"
@@ -17,7 +18,8 @@
         android:text="Nome Despesa"
         android:gravity="center"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         android:layout_weight="1"
         />
     <TextView
@@ -26,7 +28,8 @@
         android:layout_height="wrap_content"
         android:text="Valor"
         android:gravity="center"
-        android:textSize="18dp"
+        android:textSize="18sp"
+        android:textColor="@color/black"
         android:layout_weight="1"
         />
     <TextView
@@ -34,8 +37,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Data"
+        android:textColor="@color/black"
         android:gravity="center"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:layout_weight="1"
         />
 </LinearLayout>
