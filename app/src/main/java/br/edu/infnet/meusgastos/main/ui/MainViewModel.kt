@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.edu.infnet.meusgastos.R
+import br.edu.infnet.meusgastos.models.Categoria
 import br.edu.infnet.meusgastos.models.Despesa
 import br.edu.infnet.meusgastos.models.DespesaComId
 import br.edu.infnet.meusgastos.repository.DespesasRepository
@@ -167,7 +169,7 @@ class MainViewModel : ViewModel() {
             valor = despesa.valor,
             data = despesa.data,
             descricao = despesa.descricao,
-            categoriaId = despesa.categoriaId,
+            categoriaNome = despesa.categoriaNome,
             id = id
         )
     }
@@ -199,8 +201,32 @@ class MainViewModel : ViewModel() {
 
     /////////////////////////////////////////////////////
 
+    ////////Categorias///////
+     val categoriaLista = mutableListOf<Categoria>(
+        Categoria(1, "Comida", R.drawable.cat_comida),
+        Categoria(2, "Transporte", R.drawable.cat_transporte),
+        Categoria(3, "Contas", R.drawable.cat_contas),
+        Categoria(4, "Lazer", R.drawable.cat_lazer),
+        Categoria(5, "Compras", R.drawable.cat_compras),
+        Categoria(7, "Mercado", R.drawable.cat_mercado),
+        Categoria(8, "Cartão", R.drawable.cat_cartao),
+        Categoria(9, "Educação", R.drawable.cat_educacao),
+        Categoria(10, "Pets", R.drawable.cat_pets),
+        Categoria(11, "Presente", R.drawable.cat_presente),
+        Categoria(12, "Roupas", R.drawable.cat_roupas),
+        Categoria(13, "Saúde", R.drawable.cat_saude),
+        Categoria(14, "Viagem", R.drawable.cat_viagem),
+        Categoria(15, "Outros", R.drawable.cat_outros),
+
+    )
+    val categorias = MutableLiveData<List<Categoria>>()
+    private val _textoCompartilhado = MutableLiveData<String>("")
+    val textoCompartilhado: LiveData<String> = _textoCompartilhado
+
+
     init {
         observerColecaoDespesas()
+        categorias.value = categoriaLista
     }
 
 }

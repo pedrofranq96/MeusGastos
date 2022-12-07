@@ -2,36 +2,38 @@ package br.edu.infnet.meusgastos.main.ui
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.edu.infnet.meusgastos.R
-import br.edu.infnet.meusgastos.databinding.FragmentCriarDespesaBinding
+import br.edu.infnet.meusgastos.databinding.FragmentEditarDespesaBinding
 import br.edu.infnet.meusgastos.main.ui.adapters.CategoriasAdapter
 import br.edu.infnet.meusgastos.main.ui.adapters.CategoriasListener
 import br.edu.infnet.meusgastos.models.Categoria
 import br.edu.infnet.meusgastos.models.Despesa
-import br.edu.infnet.meusgastos.utils.*
+import br.edu.infnet.meusgastos.utils.getFloatInput
+import br.edu.infnet.meusgastos.utils.getTextInput
+import br.edu.infnet.meusgastos.utils.nav
+import br.edu.infnet.meusgastos.utils.navUp
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.math.log
 
 
-class CriarDespesasFragment : Fragment() {
+class EditarDespesaFragment : Fragment() {
 
-    val TAG = "CriarDespesas"
+    val TAG = "EditarDespesa"
 
-    val viewModel by activityViewModels<MainViewModel>()
+    val viewModel: MainViewModel by activityViewModels()
 
-    private var _binding: FragmentCriarDespesaBinding? = null
-
+    private var _binding: FragmentEditarDespesaBinding? = null
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -41,23 +43,32 @@ class CriarDespesasFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCriarDespesaBinding.inflate(inflater, container, false)
+        _binding = FragmentEditarDespesaBinding.inflate(inflater, container, false)
         val view = binding.root
         setup()
+
         return view
     }
 
     private fun setup() {
         setupViews()
+        setupObservers()
         setupClickListeners()
         setupRecyclerView()
-        setupObservers()
     }
 
-    private fun setupObservers() {
-        viewModel.categorias.observe(viewLifecycleOwner){
-            atualizaRecyclerView(it)
+    private fun setupClickListeners() {
+        binding.apply{
+            btnAtualizarDespesa.setOnClickListener {
+                onAtualizarClick()
+            }
+
+            binding.inputDataDespesa.setOnClickListener {
+                onDatePickerClick()
+            }
+
         }
+
     }
 
     private fun atualizaRecyclerView(lista: List<Categoria>?) {
@@ -84,57 +95,22 @@ class CriarDespesasFragment : Fragment() {
         )
     }
 
-    private fun setupClickListeners() {
-        binding.btnCriarDespesa.setOnClickListener {
-            onCriarClick()
+    
 
-        }
-        binding.inputDataDespesa.setOnClickListener {
-            onDatePickerClick()
-        }
-
+    private fun onAtualizarClick() {
+        val despesa = getdespesaFromInputs()
+        viewModel.atualizaDespesa(despesa)
+        navUp()
     }
 
-    private fun onCriarClick() {
-        val despesa = getDespesaFromInputs()
-
-        viewModel.criarDespesa(despesa)
-            .addOnSuccessListener { documentReference ->
-                toast("Criado com sucesso com id: ${documentReference.id}")
-                navUp()
-            }
-            .addOnFailureListener { e ->
-                Log.e(TAG, e.toString())
-                toast("Falha ao criar Despesa")
-            }
-    }
-
-
-    //Alteração da data: Date(Despesa.model) para LocalDate devido a essa fun
-    //Testar se o create funciona assim
-
-
-
-    //Criar a formatação do input na view!!!
     @SuppressLint("NewApi")
-    private fun getDespesaFromInputs(): Despesa {
-
+    private fun getdespesaFromInputs(): Despesa {
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-        // 22/04/2002
-        binding.apply {
-//            when(inputDataDespesa.length()){
-//                2 -> "${inputDataDespesa}/"
-//                5 -> "${inputDataDespesa}/"
-//                11 -> inputDataDespesa.text.toString().substring(0,10)
-//            }
-            //Log.e("Nome: ", inputNomeDespesa.text.toString())
-            //Log.e("Valor: ", inputValorDespesa.text.toString())
-            //Log.e("Descricao: ", inputDescricaoDespesa.text.toString())
-            //Log.e("Data Despesa(input): ", inputDataDespesa.text.toString())
-            val data = LocalDate.parse(inputDataDespesa.text.toString(), formatter)
-            //val data = LocalDate.parse(inputDataDespesa.toString(), formatter)
 
-            Log.e("Data Despesa: ", data.toString())
+
+        binding.apply {
+
+            val data = LocalDate.parse(inputDataDespesa.text.toString(), formatter)
 
             return Despesa(
                 nome = getTextInput(inputNomeDespesa) ,
@@ -146,24 +122,31 @@ class CriarDespesasFragment : Fragment() {
         }
     }
 
-//    private fun getIdFromCategoria(categoria: String): Int {
-//        return when(categoria){
-//            "res/drawable/cat_comida.xml" -> R.drawable.cat_comida
-//            "res/drawable/cat_transporte.xml" -> R.drawable.cat_transporte
-//
-//            else -> 0
-//        }
-//    }
+    private fun setupObservers() {
+        viewModel.categorias.observe(viewLifecycleOwner){
+            atualizaRecyclerView(it)
+        }
 
+        viewModel.selectedDespesaComId.observe(viewLifecycleOwner){
+            binding.apply {
+                inputNomeDespesa.setText(it.nome)
+                inputValorDespesa.setText(it.valor.toString())
+                inputDataDespesa.setText(it.data)
+                inputDescricaoDespesa.setText(it.descricao)
+                inputCategoriaDespesaNome.setText(it.categoriaNome)
+            }
+        }
+    }
 
     private fun setupViews() {
-        activity?.setTitle("Criar Despesa")
+        activity?.setTitle("Editar")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 
 
     fun onDatePickerClick() {
@@ -202,7 +185,5 @@ class CriarDespesasFragment : Fragment() {
         val sdf = java.text.SimpleDateFormat(myFormat)
         binding.inputDataDespesa.setText("${sdf.format(cal.time)}")
     }
-
-
 
 }

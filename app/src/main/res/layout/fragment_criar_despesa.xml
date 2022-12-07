@@ -7,6 +7,9 @@
     android:layout_height="match_parent"
     tools:context=".main.ui.CriarDespesasFragment"
     >
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -67,15 +70,15 @@
 
 
         <Button
-                android:id="@+id/inputDataDespesa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="15dp"
-                android:layout_marginHorizontal="20dp"
-                android:inputType="date"
-                android:textColorHint="@color/white"
-                android:hint="Selecione a data:"
-                />
+            android:id="@+id/inputDataDespesa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15dp"
+            android:layout_marginHorizontal="20dp"
+            android:inputType="date"
+            android:textColorHint="@color/white"
+            android:hint="Selecione a data:"
+            />
 
 
 
@@ -103,22 +106,32 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:startIconDrawable="@drawable/ic_categoria_24"
+            android:focusable="false"
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputCategoriaDespesa"
+                android:id="@+id/inputCategoriaDespesaNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_marginVertical="15dp"
                 android:layout_marginHorizontal="20dp"
-                android:inputType="number"
-                android:hint="Categoria"
+                android:inputType="text"
+                android:hint="Categoria Nome"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_categorias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            />
 
         <Button
             android:id="@+id/btnCriarDespesa"
@@ -128,5 +141,6 @@
             android:text="Salvar"
             />
     </LinearLayout>
+</ScrollView>
 
 </FrameLayout>

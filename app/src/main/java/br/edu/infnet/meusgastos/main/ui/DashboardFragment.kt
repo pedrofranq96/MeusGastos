@@ -46,6 +46,7 @@ class DashboardFragment : Fragment(){
        object : DespesaComIdListener{
            override fun onEditClick(despesa: DespesaComId) {
                viewModel.setSelectedDespesaComId(despesa)
+               nav(R.id.action_dashboardFragment_to_editarDespesaFragment)
            }
 
            override fun onDeleteClick(despesa: DespesaComId) {

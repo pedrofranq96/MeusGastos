@@ -7,5 +7,5 @@ data class Despesa(
     val valor: Float = 0F,
     val data: String = "",
     val descricao: String = "",
-    val categoriaId: Int = 0
+    val categoriaNome: String = ""
 )
