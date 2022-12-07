@@ -24,6 +24,8 @@ class DespesasRepository private constructor(){
 
         lateinit var colecaoDespesas: CollectionReference
 
+        lateinit var colecaoCategorias: CollectionReference
+
 
         private var INSTANCE: DespesasRepository? = null
         fun initialize() {
@@ -40,6 +42,7 @@ class DespesasRepository private constructor(){
             // Coleção de despesas:
             colecaoDespesas = db.collection("despesas")
 
+            colecaoCategorias = db.collection("categorias")
 
         }
 
@@ -48,6 +51,7 @@ class DespesasRepository private constructor(){
                 ?: throw IllegalStateException("DespesasRepository deve ser inicializado.")
         }
     }
+
         // Auth /////////////////
 
         fun getCurrentUser() = auth.currentUser
