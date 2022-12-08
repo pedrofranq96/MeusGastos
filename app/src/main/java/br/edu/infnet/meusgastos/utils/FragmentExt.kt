@@ -1,13 +1,11 @@
 package br.edu.infnet.meusgastos.utils
 
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
+
 
 fun Fragment.nav(id: Int){
     findNavController().navigate(id)
@@ -19,6 +17,9 @@ fun Fragment.navUp(){
 
 fun Fragment.getTextInput(editText: EditText): String {
     return editText.text.toString()
+}
+fun Fragment.getTextInput(button: Button): String {
+    return button.text.toString()
 }
 
 

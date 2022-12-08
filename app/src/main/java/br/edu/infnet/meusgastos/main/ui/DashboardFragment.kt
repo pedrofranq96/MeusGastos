@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,8 +14,7 @@ import br.edu.infnet.meusgastos.main.ui.adapters.DespesaComIdAdapter
 import br.edu.infnet.meusgastos.main.ui.adapters.DespesaComIdListener
 import br.edu.infnet.meusgastos.models.DespesaComId
 import br.edu.infnet.meusgastos.utils.nav
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
+
 
 class DashboardFragment : Fragment(){
 
@@ -33,10 +33,9 @@ class DashboardFragment : Fragment(){
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        MobileAds.initialize(this.requireContext()) {}
-        val adRequest = AdRequest.Builder().build()
-        binding.adView.loadAd(adRequest)
-
+        val names = listOf<String>("Comida","Transporte","Contas","Compras","Lazer","Cartão","Mercado", "Educação", "Pets", "Presente", "Roupas", "Saúde", "Viagem", "Outros")
+        val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_dropdown_item_1line, names)
+        binding.etText.setAdapter(adapter)
 
         setup()
         return view
@@ -78,7 +77,8 @@ class DashboardFragment : Fragment(){
     }
 
     fun atualizaRecyclerView(lista: List<DespesaComId>?) {
-            adapter.submitList(lista)
+            //adapter.submitList(lista)
+            adapter.submitList(viewModel.getListaPorCategoria(""))
             binding.rvDashboardDespesas.adapter = adapter
     }
 

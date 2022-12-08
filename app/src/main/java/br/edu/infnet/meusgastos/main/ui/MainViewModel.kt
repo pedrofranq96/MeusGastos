@@ -184,6 +184,11 @@ class MainViewModel : ViewModel() {
         repository.atualizaDespesa(selectedDespesaComId.value?.id, despesa)
     }
 
+    fun getListaPorCategoria(string: String): List<DespesaComId>{
+        return despesasComId.value?.filter {
+            it.categoriaNome.contains(string)
+        }?: emptyList()
+    }
 
 //    private val _despesas = MutableLiveData<List<Despesa>>()
 //    val despesas: LiveData<List<Despesa>> = _despesas

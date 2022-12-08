@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import br.edu.infnet.meusgastos.databinding.ActivityHomeBinding
 import br.edu.infnet.meusgastos.login.ui.LoginActivity
 import br.edu.infnet.meusgastos.main.ui.MainViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 
 class HomeActivity : AppCompatActivity() {
 
@@ -24,6 +26,13 @@ class HomeActivity : AppCompatActivity() {
             viewModel.logout()
             startLoginActivity()
         }
+
+        binding.tvUserEmail.text = viewModel.getCurrentUserEmail()
+
+        MobileAds.initialize(this) {}
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+
 
 
 
