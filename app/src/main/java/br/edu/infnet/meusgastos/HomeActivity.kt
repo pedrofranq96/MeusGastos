@@ -24,6 +24,9 @@ class HomeActivity : AppCompatActivity() {
             viewModel.logout()
             startLoginActivity()
         }
+
+
+
     }
 
     private fun startLoginActivity() {

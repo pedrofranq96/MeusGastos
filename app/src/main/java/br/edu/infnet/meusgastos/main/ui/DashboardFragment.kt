@@ -13,6 +13,8 @@ import br.edu.infnet.meusgastos.main.ui.adapters.DespesaComIdAdapter
 import br.edu.infnet.meusgastos.main.ui.adapters.DespesaComIdListener
 import br.edu.infnet.meusgastos.models.DespesaComId
 import br.edu.infnet.meusgastos.utils.nav
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 
 class DashboardFragment : Fragment(){
 
@@ -30,6 +32,11 @@ class DashboardFragment : Fragment(){
     ): View? {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        MobileAds.initialize(this.requireContext()) {}
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+
 
         setup()
         return view

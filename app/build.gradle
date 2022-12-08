@@ -43,6 +43,9 @@ android {
 
 dependencies{
 
+    //Admob
+    implementation 'com.google.android.gms:play-services-ads-lite:21.3.0'
+
     // Firebase Auth
     implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
 
@@ -51,6 +54,7 @@ dependencies{
 
     implementation platform('com.google.firebase:firebase-bom:31.0.3')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.android.gms:play-services-ads:21.3.0'
 
     //Fragments e Navigation
     def navigation_version = "2.5.2"

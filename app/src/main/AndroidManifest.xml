@@ -17,6 +17,7 @@
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.MeusGastos.NoActionBar">
+
         </activity>
         <activity android:name=".login.ui.LoginActivity"
             android:theme="@style/Theme.MeusGastos.NoActionBar"
@@ -36,6 +37,11 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7106800374655837~8075898236"/>
+
     </application>
 
 </manifest>

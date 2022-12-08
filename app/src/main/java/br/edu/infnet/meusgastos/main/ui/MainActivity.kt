@@ -10,6 +10,8 @@ import br.edu.infnet.meusgastos.R
 import br.edu.infnet.meusgastos.ViewPagerAdapter
 import br.edu.infnet.meusgastos.databinding.ActivityMainBinding
 import br.edu.infnet.meusgastos.login.ui.LoginActivity
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 
 class MainActivity : AppCompatActivity() {
 
@@ -44,6 +46,8 @@ class MainActivity : AppCompatActivity() {
         // on below line we are setting
         // adapter to our view pager.
         viewPager.adapter = viewPagerAdapter
+
+
 
         pular.setOnClickListener(){
             startLoginActivity()
