@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.edu.infnet.meusgastos.databinding.FragmentEditarDespesaBinding
 import br.edu.infnet.meusgastos.main.ui.adapters.CategoriasAdapter
@@ -18,6 +20,7 @@ import br.edu.infnet.meusgastos.models.Despesa
 import br.edu.infnet.meusgastos.utils.getFloatInput
 import br.edu.infnet.meusgastos.utils.getTextInput
 import br.edu.infnet.meusgastos.utils.navUp
+import br.edu.infnet.meusgastos.utils.toast
 import java.util.*
 
 
@@ -56,6 +59,9 @@ class EditarDespesaFragment : Fragment() {
             btnAtualizarDespesa.setOnClickListener {
                 onAtualizarClick()
             }
+            btnDeletarDespesa.setOnClickListener {
+                onDeletarClick()
+            }
 
             binding.inputDataDespesa.setOnClickListener {
                 onDatePickerClick()
@@ -64,6 +70,7 @@ class EditarDespesaFragment : Fragment() {
         }
 
     }
+
 
     private fun atualizaRecyclerView(lista: List<Categoria>?) {
         adapter.submitList(lista)
@@ -94,6 +101,14 @@ class EditarDespesaFragment : Fragment() {
     private fun onAtualizarClick() {
         val despesa = getdespesaFromInputs()
         viewModel.atualizaDespesa(despesa)
+        Log.i(TAG, viewModel.selectedDespesaComId.toString())
+        navUp()
+    }
+
+
+    private fun onDeletarClick() {
+        viewModel.deletarDespesa()
+        toast("Deletado com sucesso")
         navUp()
     }
 

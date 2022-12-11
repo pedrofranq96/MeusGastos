@@ -1,6 +1,7 @@
 package br.edu.infnet.meusgastos.main.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import br.edu.infnet.meusgastos.utils.nav
 
 class DashboardFragment : Fragment(){
 
+    val TAG = "Dashboard"
     val viewModel: MainViewModel by activityViewModels()
 
     private var _binding: FragmentDashboardBinding? = null
@@ -41,6 +43,8 @@ class DashboardFragment : Fragment(){
         return view
     }
 
+
+
     private fun setup() {
         setupViews()
         setupClickListeners()
@@ -56,7 +60,10 @@ class DashboardFragment : Fragment(){
            }
 
            override fun onDeleteClick(despesa: DespesaComId) {
+
+               //viewModel.setSelectedDespesaComId(despesa)
                viewModel.deleteDespesa(despesa.id)
+               Log.d(TAG, "Delete Clicado")
            }
        }
     )
@@ -78,8 +85,16 @@ class DashboardFragment : Fragment(){
 
     fun atualizaRecyclerView(lista: List<DespesaComId>?) {
             //adapter.submitList(lista)
-            adapter.submitList(viewModel.getListaPorCategoria(""))
+            val nomeCategoria = binding.etText.text.toString()
+            adapter.submitList(viewModel.getListaPorCategoria(nomeCategoria))
             binding.rvDashboardDespesas.adapter = adapter
+    }
+
+    fun atualizaRecyclerViewBusca(nome: String) {
+        //adapter.submitList(lista)
+        //val nomeCategoria = binding.etText.text.toString()
+        adapter.submitList(viewModel.getListaPorCategoria(nome))
+        binding.rvDashboardDespesas.adapter = adapter
     }
 
     private fun setupViews() {
@@ -91,6 +106,10 @@ class DashboardFragment : Fragment(){
             btnRedirectCriarDespesa.setOnClickListener {
                 nav(R.id.action_dashboardFragment_to_criarDespesasFragment)
             }
+            imbBuscar.setOnClickListener{
+                atualizaRecyclerViewBusca(binding.etText.text.toString())
+            }
+
         }
     }
 

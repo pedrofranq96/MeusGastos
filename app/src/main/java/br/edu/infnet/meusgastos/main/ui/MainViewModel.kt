@@ -19,6 +19,8 @@ class MainViewModel : ViewModel() {
     val TAG = "ViewModel"
     val repository = DespesasRepository.get()
 
+    val totalDespesas = 0.0
+
     fun getCurrentUserEmail(): String {
         return repository.getCurrentUser()?.email ?: "Email não encontrado"
     }
@@ -184,11 +186,10 @@ class MainViewModel : ViewModel() {
         repository.atualizaDespesa(selectedDespesaComId.value?.id, despesa)
     }
 
-    fun getListaPorCategoria(string: String): List<DespesaComId>{
-        return despesasComId.value?.filter {
-            it.categoriaNome.contains(string)
-        }?: emptyList()
+    fun deletarDespesa(){
+        selectedDespesaComId.value?.let { repository.deleteDespesa(it.id) }
     }
+
 
 //    private val _despesas = MutableLiveData<List<Despesa>>()
 //    val despesas: LiveData<List<Despesa>> = _despesas
@@ -229,9 +230,24 @@ class MainViewModel : ViewModel() {
     val textoCompartilhado: LiveData<String> = _textoCompartilhado
 
 
+    fun getListaPorCategoria(string: String): List<DespesaComId>{
+        return despesasComId.value?.filter {
+            it.categoriaNome.contains(string.capitalize())
+        }?: emptyList()
+    }
+
+    fun somaValorTotalDespesas(){
+
+        despesasComId.value?.forEach {
+            Log.i(TAG, it.nome)
+        }
+
+    }
+
     init {
         observerColecaoDespesas()
         categorias.value = categoriaLista
+        somaValorTotalDespesas()
     }
 
 }
