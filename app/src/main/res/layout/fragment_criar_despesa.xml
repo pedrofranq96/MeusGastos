@@ -130,6 +130,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
+            tools:listitem="@layout/categoria_list_item"
             android:id="@+id/rv_categorias"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

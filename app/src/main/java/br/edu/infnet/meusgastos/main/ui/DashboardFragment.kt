@@ -99,6 +99,8 @@ class DashboardFragment : Fragment(){
 
     private fun setupViews() {
         activity?.setTitle("Dashboard")
+        binding.tvTotalDespesas.setText(viewModel.totalDespesas.toString())
+
     }
 
     private fun setupClickListeners() {

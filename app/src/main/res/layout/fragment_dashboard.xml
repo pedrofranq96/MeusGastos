@@ -26,6 +26,7 @@
         android:text="Valor total dos gastos"
         android:textColor="@color/black"
         android:textSize="18sp"
+        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
         app:layout_constraintBottom_toTopOf="@id/layEt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +34,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layEt"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -90,8 +90,6 @@
         app:layout_constraintBottom_toBottomOf="@id/rv_dashboard_despesas"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_24" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

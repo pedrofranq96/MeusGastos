@@ -203,6 +203,4 @@ class CriarDespesasFragment : Fragment() {
         binding.inputDataDespesa.setText("${sdf.format(cal.time)}")
     }
 
-
-
 }

@@ -107,9 +107,7 @@ class EditarDespesaFragment : Fragment() {
 
 
     private fun onDeletarClick() {
-        viewModel.deletarDespesa()
-        toast("Deletado com sucesso")
-        navUp()
+        ConfirmDeleteDialogClick()
     }
 
     @SuppressLint("NewApi")
@@ -192,6 +190,27 @@ class EditarDespesaFragment : Fragment() {
         val myFormat = "dd/MM/yyyy"
         val sdf = java.text.SimpleDateFormat(myFormat)
         binding.inputDataDespesa.setText("${sdf.format(cal.time)}")
+    }
+
+    //Dialog de confirmação
+    // Constrói e implementa os eventos de cliques de um diálogo com dois botões
+    fun ConfirmDeleteDialogClick() {
+        val dialog = TwoChoicesDialogFragment(
+            object : TwoChoicesAlertDialogFragmentListener {
+                override fun onPositiveButtonClick() {
+                    viewModel.deletarDespesa()
+                    toast("Deletado com sucesso!")
+                    navUp()
+
+                }
+
+                override fun onNegativeButtonClick() {
+                    toast("Operação cancelada!")
+
+                }
+            }
+        )
+        dialog.show(childFragmentManager, "TwoChoicesAlert")
     }
 
 }

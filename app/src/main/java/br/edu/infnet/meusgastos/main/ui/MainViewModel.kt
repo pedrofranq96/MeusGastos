@@ -19,7 +19,7 @@ class MainViewModel : ViewModel() {
     val TAG = "ViewModel"
     val repository = DespesasRepository.get()
 
-    val totalDespesas = 0.0
+    val totalDespesas = 0F
 
     fun getCurrentUserEmail(): String {
         return repository.getCurrentUser()?.email ?: "Email não encontrado"
@@ -65,7 +65,8 @@ class MainViewModel : ViewModel() {
 
                             Log.i(TAG,"DespesaComId: ${despesaComId}")
                             listaInput.add(despesaComId)
-
+                            //Adiciona valor ao valor total de despesas
+                            totalDespesas.plus(despesaComId.valor)
                         }
 
                         DocumentChange.Type.MODIFIED -> {
@@ -74,17 +75,21 @@ class MainViewModel : ViewModel() {
                             val despesaComId = despesaToDespesaComId(despesa, id)
 
                             Log.i(TAG,"Modificação - DespesaComId: ${despesaComId}")
+                            totalDespesas.plus(despesaComId.valor)
                             listaModificacao.add(despesaComId)
                         }
 
                         DocumentChange.Type.REMOVED -> {
                             val id = dc.document.id
+
                             Log.i(TAG, "Id removido: ${id}")
                             listaRemocao.add(dc.document.id)
                         }
 
                     }
 
+              //      var despesaValor = dc.document.toObject<DespesaComId>().valor
+              //      val somaAtualiza = ++despesaValor
                 }
 
                 addListaToDespesasComId(listaInput)
@@ -227,7 +232,7 @@ class MainViewModel : ViewModel() {
     )
     val categorias = MutableLiveData<List<Categoria>>()
     private val _textoCompartilhado = MutableLiveData<String>("")
-    val textoCompartilhado: LiveData<String> = _textoCompartilhado
+   // val textoCompartilhado: LiveData<String> = _textoCompartilhado
 
 
     fun getListaPorCategoria(string: String): List<DespesaComId>{

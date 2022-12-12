@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import br.edu.infnet.meusgastos.databinding.ActivityHomeBinding
 import br.edu.infnet.meusgastos.login.ui.LoginActivity
 import br.edu.infnet.meusgastos.main.ui.MainViewModel
+import br.edu.infnet.meusgastos.main.ui.TwoChoicesAlertDialogFragmentListener
+import br.edu.infnet.meusgastos.main.ui.TwoChoicesDialogFragment
+import br.edu.infnet.meusgastos.utils.navUp
+import br.edu.infnet.meusgastos.utils.toast
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 
@@ -32,8 +36,6 @@ class HomeActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
-
-
 
 
     }
