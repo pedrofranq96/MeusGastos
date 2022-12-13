@@ -19,7 +19,11 @@ class MainViewModel : ViewModel() {
     val TAG = "ViewModel"
     val repository = DespesasRepository.get()
 
-    val totalDespesas = 0F
+    private val _totalDespesas = MutableLiveData<Float>(0.0F)
+    val totalDespesas : LiveData<Float> = _totalDespesas
+    fun setTotalDespesas(value: Float){
+        _totalDespesas.postValue(value)
+    }
 
     fun getCurrentUserEmail(): String {
         return repository.getCurrentUser()?.email ?: "Email não encontrado"
@@ -65,8 +69,7 @@ class MainViewModel : ViewModel() {
 
                             Log.i(TAG,"DespesaComId: ${despesaComId}")
                             listaInput.add(despesaComId)
-                            //Adiciona valor ao valor total de despesas
-                            totalDespesas.plus(despesaComId.valor)
+
                         }
 
                         DocumentChange.Type.MODIFIED -> {
@@ -75,7 +78,6 @@ class MainViewModel : ViewModel() {
                             val despesaComId = despesaToDespesaComId(despesa, id)
 
                             Log.i(TAG,"Modificação - DespesaComId: ${despesaComId}")
-                            totalDespesas.plus(despesaComId.valor)
                             listaModificacao.add(despesaComId)
                         }
 
@@ -88,8 +90,6 @@ class MainViewModel : ViewModel() {
 
                     }
 
-              //      var despesaValor = dc.document.toObject<DespesaComId>().valor
-              //      val somaAtualiza = ++despesaValor
                 }
 
                 addListaToDespesasComId(listaInput)
@@ -185,6 +185,7 @@ class MainViewModel : ViewModel() {
     val selectedDespesaComId: LiveData<DespesaComId> = _selectedDespesaComId
     fun setSelectedDespesaComId(value: DespesaComId) {
         _selectedDespesaComId.postValue(value)
+
     }
 
     fun atualizaDespesa(despesa: Despesa) {
@@ -206,8 +207,35 @@ class MainViewModel : ViewModel() {
     val despesasComId : LiveData<List<DespesaComId>> = _despesasComId
     fun setDespesaComId(value : List<DespesaComId>){
         _despesasComId.postValue(value)
+        setTotalDespesas(calculaValorTotal(value))
     }
 
+
+    fun calculaValorTotal(lista: List<DespesaComId>): Float{
+
+        var valorfinal = 0.0F
+        lista.forEach { despesa ->
+            valorfinal += despesa.valor
+            Log.i(TAG, valorfinal.toString())
+        }
+        return valorfinal
+
+    }
+
+
+    fun calculaValorTotalPorCategoria(
+        lista: List<DespesaComId>,
+    categoriaInput: String): Float{
+
+        var valorfinal = 0.0F
+        lista.filter { it.categoriaNome == categoriaInput }
+            .forEach { despesa ->
+            valorfinal += despesa.valor
+            Log.i(TAG, valorfinal.toString())
+        }
+        return valorfinal
+
+    }
 
 
     /////////////////////////////////////////////////////

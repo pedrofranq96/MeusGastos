@@ -70,6 +70,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -82,6 +83,13 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:navGraph="@navigation/nav_graph"
         tools:layout_editor_absoluteX="4dp" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/tab_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
