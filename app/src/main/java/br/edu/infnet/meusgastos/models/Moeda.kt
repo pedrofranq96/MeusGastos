@@ -1,10 +1,7 @@
 package br.edu.infnet.meusgastos.models
 
-import com.google.gson.annotations.SerializedName
-
 
 data class Moeda(
-    @SerializedName("Ask")
     val ask: String,
     val bid: String,
     val code: String,

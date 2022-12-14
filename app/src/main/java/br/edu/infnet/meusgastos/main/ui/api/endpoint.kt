@@ -13,6 +13,11 @@ interface Endpoint {
     @GET("EUR-BRL")
     fun getEURBRL() : Call<List<Moeda>>
 
-    @GET("BTC-EUR")
-    fun getBTCEUR() : Call<List<Moeda>>
+    @GET("BTC-BRL")
+    fun getBTCBRL() : Call<List<Moeda>>
+
+    @GET("GBP-BRL")
+    fun getGBPBRL() : Call<List<Moeda>>
+
+
 }

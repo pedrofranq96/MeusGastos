@@ -208,6 +208,7 @@ class MainViewModel : ViewModel() {
     fun setDespesaComId(value : List<DespesaComId>){
         _despesasComId.postValue(value)
         setTotalDespesas(calculaValorTotal(value))
+        totalComida = calculaValorTotalPorCategoria("Comida")
     }
 
 
@@ -222,21 +223,63 @@ class MainViewModel : ViewModel() {
 
     }
 
+    fun setTotalPorCategoria(){
+
+        val listaCategorias = listOf<String>("Comida", "Transporte", "Contas", "Lazer", "Compras", "Mercado", "Cartão", "Educação", "Pets", "Presente", "Roupas", "Saúde", "Viagem", "Outros")
+        listaCategorias.forEach {
+           // Log.i("ListaCategorias", it)
+          //  calculaValorTotalPorCategoria()
+        }
+    }
+
+    var totalComida = 0.0F
+    var totalTransporte = 0.0F
+    var totalContas = 0.0F
+    var totalLazer = 0.0F
+    var totalCompras = 0.0F
+    var totalMercado = 0.0F
+    var totalCartao = 0.0F
+    var totalEducacao = 0.0F
+    var totalPets = 0.0F
+    var totalPresente = 0.0F
+    var totalRoupas = 0.0F
+    var totalSaude = 0.0F
+    var totalViagem = 0.0F
+    var totalOutros = 0.0F
+
+//    fun calculaValorTotalPorCategoria(
+//        lista: List<DespesaComId>,
+//    categoriaInput: String): Float{
+//
+//        var valorfinal = 0.0F
+//        lista.filter { it.categoriaNome == categoriaInput }
+//            .forEach { despesa ->
+//            valorfinal += despesa.valor
+//            Log.i(TAG, valorfinal.toString())
+//        }
+//        return valorfinal
+//
+//    }
 
     fun calculaValorTotalPorCategoria(
-        lista: List<DespesaComId>,
-    categoriaInput: String): Float{
+        categoriaInput: String): Float{
+
+        val mutableList = mutableListOf<DespesaComId>()
+
+        listOf<DespesaComId>()
+        despesasComId.value?.forEach {
+            mutableList.add(it)
+        }
 
         var valorfinal = 0.0F
-        lista.filter { it.categoriaNome == categoriaInput }
+        mutableList.filter { it.categoriaNome == categoriaInput }
             .forEach { despesa ->
-            valorfinal += despesa.valor
-            Log.i(TAG, valorfinal.toString())
-        }
+                valorfinal += despesa.valor
+                Log.i(TAG, valorfinal.toString())
+            }
         return valorfinal
 
     }
-
 
     /////////////////////////////////////////////////////
 
@@ -280,7 +323,8 @@ class MainViewModel : ViewModel() {
     init {
         observerColecaoDespesas()
         categorias.value = categoriaLista
-        somaValorTotalDespesas()
+        //somaValorTotalDespesas()
+
     }
 
 }
