@@ -54,7 +54,7 @@ class SignOnFragment : Fragment(){
 
     private fun setupClickListeners() {
         binding.apply {
-            btnSignOn.setOnClickListener {
+            btnCadastrar.setOnClickListener {
 
                 onSignOnClick()
 
@@ -72,9 +72,9 @@ class SignOnFragment : Fragment(){
     private fun onSignOnClick() {
 
         binding.apply {
-            val email = getTextInput(inputEmail)
-            val password = getTextInput(inputPassword)
-            val confirmPassword = getTextInput(inputConfirmPassword)
+            val email = getTextInput(inputEmail2)
+            val password = getTextInput(inputPassword2)
+            val confirmPassword = getTextInput(inputConfirmPassword2)
 
             if ( (password == confirmPassword) && password.length > 5){
                 signOn(email, password)
