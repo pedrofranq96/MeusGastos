@@ -2,17 +2,16 @@ package br.edu.infnet.meusgastos.main.ui
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.edu.infnet.meusgastos.R
 import br.edu.infnet.meusgastos.databinding.FragmentEditarDespesaBinding
 import br.edu.infnet.meusgastos.main.ui.adapters.CategoriasAdapter
 import br.edu.infnet.meusgastos.main.ui.adapters.CategoriasListener
@@ -20,10 +19,8 @@ import br.edu.infnet.meusgastos.models.Categoria
 import br.edu.infnet.meusgastos.models.Despesa
 import br.edu.infnet.meusgastos.utils.getFloatInput
 import br.edu.infnet.meusgastos.utils.getTextInput
-import br.edu.infnet.meusgastos.utils.nav
 import br.edu.infnet.meusgastos.utils.navUp
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import br.edu.infnet.meusgastos.utils.toast
 import java.util.*
 
 
@@ -62,6 +59,9 @@ class EditarDespesaFragment : Fragment() {
             btnAtualizarDespesa.setOnClickListener {
                 onAtualizarClick()
             }
+            btnDeletarDespesa.setOnClickListener {
+                onDeletarClick()
+            }
 
             binding.inputDataDespesa.setOnClickListener {
                 onDatePickerClick()
@@ -70,6 +70,7 @@ class EditarDespesaFragment : Fragment() {
         }
 
     }
+
 
     private fun atualizaRecyclerView(lista: List<Categoria>?) {
         adapter.submitList(lista)
@@ -100,22 +101,27 @@ class EditarDespesaFragment : Fragment() {
     private fun onAtualizarClick() {
         val despesa = getdespesaFromInputs()
         viewModel.atualizaDespesa(despesa)
+        Log.i(TAG, viewModel.selectedDespesaComId.toString())
         navUp()
+    }
+
+
+    private fun onDeletarClick() {
+        ConfirmDeleteDialogClick()
     }
 
     @SuppressLint("NewApi")
     private fun getdespesaFromInputs(): Despesa {
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-
-
+    //    val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+    //    val formatter2 =  DateTimeFormatter.ofPattern("yyyy-MM-dd")
         binding.apply {
-
-            val data = LocalDate.parse(inputDataDespesa.text.toString(), formatter)
+            Log.i(TAG, inputDataDespesa.text.toString())
+      //      val data = LocalDate.parse(inputDataDespesa.text.toString(), formatter)
 
             return Despesa(
-                nome = getTextInput(inputNomeDespesa) ,
+                nome = getTextInput(inputNomeDespesa),
                 valor = getFloatInput(inputValorDespesa),
-                data = data.toString(),
+                data = getTextInput(inputDataDespesa),
                 descricao =  getTextInput(inputDescricaoDespesa),
                 categoriaNome = getTextInput(inputCategoriaDespesaNome)
             )
@@ -131,7 +137,7 @@ class EditarDespesaFragment : Fragment() {
             binding.apply {
                 inputNomeDespesa.setText(it.nome)
                 inputValorDespesa.setText(it.valor.toString())
-                inputDataDespesa.setText(it.data)
+                inputDataDespesa.text = it.data
                 inputDescricaoDespesa.setText(it.descricao)
                 inputCategoriaDespesaNome.setText(it.categoriaNome)
             }
@@ -184,6 +190,27 @@ class EditarDespesaFragment : Fragment() {
         val myFormat = "dd/MM/yyyy"
         val sdf = java.text.SimpleDateFormat(myFormat)
         binding.inputDataDespesa.setText("${sdf.format(cal.time)}")
+    }
+
+    //Dialog de confirmação
+    // Constrói e implementa os eventos de cliques de um diálogo com dois botões
+    fun ConfirmDeleteDialogClick() {
+        val dialog = TwoChoicesDialogFragment(
+            object : TwoChoicesAlertDialogFragmentListener {
+                override fun onPositiveButtonClick() {
+                    viewModel.deletarDespesa()
+                    toast("Deletado com sucesso!")
+                    navUp()
+
+                }
+
+                override fun onNegativeButtonClick() {
+                    toast("Operação cancelada!")
+
+                }
+            }
+        )
+        dialog.show(childFragmentManager, "TwoChoicesAlert")
     }
 
 }

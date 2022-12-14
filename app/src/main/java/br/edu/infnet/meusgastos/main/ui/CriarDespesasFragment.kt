@@ -119,7 +119,7 @@ class CriarDespesasFragment : Fragment() {
     @SuppressLint("NewApi")
     private fun getDespesaFromInputs(): Despesa {
 
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+       // val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         // 22/04/2002
         binding.apply {
 //            when(inputDataDespesa.length()){
@@ -131,15 +131,15 @@ class CriarDespesasFragment : Fragment() {
             //Log.e("Valor: ", inputValorDespesa.text.toString())
             //Log.e("Descricao: ", inputDescricaoDespesa.text.toString())
             //Log.e("Data Despesa(input): ", inputDataDespesa.text.toString())
-            val data = LocalDate.parse(inputDataDespesa.text.toString(), formatter)
+            //val data = LocalDate.parse(inputDataDespesa.text.toString(), formatter)
             //val data = LocalDate.parse(inputDataDespesa.toString(), formatter)
 
-            Log.e("Data Despesa: ", data.toString())
+            Log.e("Data Despesa: ", inputDataDespesa.toString())
 
             return Despesa(
                 nome = getTextInput(inputNomeDespesa) ,
                 valor = getFloatInput(inputValorDespesa),
-                data = data.toString(),
+                data = getTextInput(inputDataDespesa),
                 descricao =  getTextInput(inputDescricaoDespesa),
                 categoriaNome = getTextInput(inputCategoriaDespesaNome)
             )
@@ -202,7 +202,5 @@ class CriarDespesasFragment : Fragment() {
         val sdf = java.text.SimpleDateFormat(myFormat)
         binding.inputDataDespesa.setText("${sdf.format(cal.time)}")
     }
-
-
 
 }

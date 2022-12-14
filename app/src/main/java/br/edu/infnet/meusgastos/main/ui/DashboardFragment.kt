@@ -1,9 +1,11 @@
 package br.edu.infnet.meusgastos.main.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,8 +16,10 @@ import br.edu.infnet.meusgastos.main.ui.adapters.DespesaComIdListener
 import br.edu.infnet.meusgastos.models.DespesaComId
 import br.edu.infnet.meusgastos.utils.nav
 
+
 class DashboardFragment : Fragment(){
 
+    val TAG = "Dashboard"
     val viewModel: MainViewModel by activityViewModels()
 
     private var _binding: FragmentDashboardBinding? = null
@@ -31,9 +35,17 @@ class DashboardFragment : Fragment(){
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        val names = listOf<String>("Comida","Transporte","Contas","Compras","Lazer","Cartão","Mercado", "Educação", "Pets", "Presente", "Roupas", "Saúde", "Viagem", "Outros")
+        val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_dropdown_item_1line, names)
+        binding.etText.setAdapter(adapter)
+
+
+
         setup()
         return view
     }
+
+
 
     private fun setup() {
         setupViews()
@@ -50,7 +62,10 @@ class DashboardFragment : Fragment(){
            }
 
            override fun onDeleteClick(despesa: DespesaComId) {
+
+               //viewModel.setSelectedDespesaComId(despesa)
                viewModel.deleteDespesa(despesa.id)
+               Log.d(TAG, "Delete Clicado")
            }
        }
     )
@@ -68,21 +83,43 @@ class DashboardFragment : Fragment(){
         viewModel.despesasComId.observe(viewLifecycleOwner){
             atualizaRecyclerView(it)
         }
+
+        viewModel.totalDespesas.observe(viewLifecycleOwner){
+            binding.tvTotalDespesas.text = "Valor total dos gastos: R$: ${"%.2f".format(it).replace(".",",")}"
+        }
+
     }
 
     fun atualizaRecyclerView(lista: List<DespesaComId>?) {
-            adapter.submitList(lista)
+            //adapter.submitList(lista)
+            val nomeCategoria = binding.etText.text.toString()
+            adapter.submitList(viewModel.getListaPorCategoria(nomeCategoria))
             binding.rvDashboardDespesas.adapter = adapter
+    }
+
+    fun atualizaRecyclerViewBusca(nome: String) {
+        //adapter.submitList(lista)
+        //val nomeCategoria = binding.etText.text.toString()
+        adapter.submitList(viewModel.getListaPorCategoria(nome))
+        binding.rvDashboardDespesas.adapter = adapter
     }
 
     private fun setupViews() {
         activity?.setTitle("Dashboard")
+        binding.tvTotalDespesas.setText(viewModel.totalDespesas.toString())
+
     }
 
     private fun setupClickListeners() {
         binding.apply {
             btnRedirectCriarDespesa.setOnClickListener {
                 nav(R.id.action_dashboardFragment_to_criarDespesasFragment)
+            }
+            imbBuscar.setOnClickListener{
+                atualizaRecyclerViewBusca(binding.etText.text.toString())
+            }
+            btnCotacao.setOnClickListener{
+                nav(R.id.action_dashboardFragment_to_moedasFragment)
             }
         }
     }

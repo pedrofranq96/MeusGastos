@@ -19,6 +19,12 @@ class MainViewModel : ViewModel() {
     val TAG = "ViewModel"
     val repository = DespesasRepository.get()
 
+    private val _totalDespesas = MutableLiveData<Float>(0.0F)
+    val totalDespesas : LiveData<Float> = _totalDespesas
+    fun setTotalDespesas(value: Float){
+        _totalDespesas.postValue(value)
+    }
+
     fun getCurrentUserEmail(): String {
         return repository.getCurrentUser()?.email ?: "Email não encontrado"
     }
@@ -77,6 +83,7 @@ class MainViewModel : ViewModel() {
 
                         DocumentChange.Type.REMOVED -> {
                             val id = dc.document.id
+
                             Log.i(TAG, "Id removido: ${id}")
                             listaRemocao.add(dc.document.id)
                         }
@@ -178,10 +185,15 @@ class MainViewModel : ViewModel() {
     val selectedDespesaComId: LiveData<DespesaComId> = _selectedDespesaComId
     fun setSelectedDespesaComId(value: DespesaComId) {
         _selectedDespesaComId.postValue(value)
+
     }
 
     fun atualizaDespesa(despesa: Despesa) {
         repository.atualizaDespesa(selectedDespesaComId.value?.id, despesa)
+    }
+
+    fun deletarDespesa(){
+        selectedDespesaComId.value?.let { repository.deleteDespesa(it.id) }
     }
 
 
@@ -195,8 +207,35 @@ class MainViewModel : ViewModel() {
     val despesasComId : LiveData<List<DespesaComId>> = _despesasComId
     fun setDespesaComId(value : List<DespesaComId>){
         _despesasComId.postValue(value)
+        setTotalDespesas(calculaValorTotal(value))
     }
 
+
+    fun calculaValorTotal(lista: List<DespesaComId>): Float{
+
+        var valorfinal = 0.0F
+        lista.forEach { despesa ->
+            valorfinal += despesa.valor
+            Log.i(TAG, valorfinal.toString())
+        }
+        return valorfinal
+
+    }
+
+
+    fun calculaValorTotalPorCategoria(
+        lista: List<DespesaComId>,
+    categoriaInput: String): Float{
+
+        var valorfinal = 0.0F
+        lista.filter { it.categoriaNome == categoriaInput }
+            .forEach { despesa ->
+            valorfinal += despesa.valor
+            Log.i(TAG, valorfinal.toString())
+        }
+        return valorfinal
+
+    }
 
 
     /////////////////////////////////////////////////////
@@ -221,12 +260,27 @@ class MainViewModel : ViewModel() {
     )
     val categorias = MutableLiveData<List<Categoria>>()
     private val _textoCompartilhado = MutableLiveData<String>("")
-    val textoCompartilhado: LiveData<String> = _textoCompartilhado
+   // val textoCompartilhado: LiveData<String> = _textoCompartilhado
 
+
+    fun getListaPorCategoria(string: String): List<DespesaComId>{
+        return despesasComId.value?.filter {
+            it.categoriaNome.contains(string.capitalize())
+        }?: emptyList()
+    }
+
+    fun somaValorTotalDespesas(){
+
+        despesasComId.value?.forEach {
+            Log.i(TAG, it.nome)
+        }
+
+    }
 
     init {
         observerColecaoDespesas()
         categorias.value = categoriaLista
+        somaValorTotalDespesas()
     }
 
 }
