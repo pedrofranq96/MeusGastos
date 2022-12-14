@@ -22,6 +22,8 @@ const val BASE_URL = "https://economia.awesomeapi.com.br/json/daily/"
 
 class MoedasFragment : Fragment() {
 
+    private val TAG = "MOEDAS"
+
     private lateinit var _binding: FragmentMoedasBinding
 
     private val binding get() = _binding!!
@@ -42,7 +44,9 @@ class MoedasFragment : Fragment() {
 
     getCotacaoEURBRL()
     getCotacaoUSBBRL()
-   // getCotacaoBTCEUR()
+    getCotacaoBTCBRL()
+    getCotacaoGBPBRL()
+
     }
 
     fun getCotacaoUSBBRL(){
@@ -59,6 +63,8 @@ class MoedasFragment : Fragment() {
                     binding.tvMoedaNome.text = moeda.name
                     binding.tvMoedaAlta.text = moeda.high
                     binding.tvMoedaBaixa.text = moeda.low
+                    binding.tvMoedaCompra.text = moeda.bid
+                    binding.tvMoedaVenda.text = moeda.ask
                 }
             }
 
@@ -79,12 +85,14 @@ class MoedasFragment : Fragment() {
                     binding.tvMoedaNome2.text = moeda.name
                     binding.tvMoedaAlta2.text = moeda.high
                     binding.tvMoedaBaixa2.text = moeda.low
+                    binding.tvMoedaCompra2.text = moeda.bid
+                    binding.tvMoedaVenda2.text = moeda.ask
                 }
             }
 
         }
     }
-    fun getCotacaoBTCEUR(){
+    fun getCotacaoBTCBRL(){
         val api = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -92,12 +100,36 @@ class MoedasFragment : Fragment() {
             .create(Endpoint::class.java)
 
         GlobalScope.launch(Dispatchers.Main){
-            val response = api.getBTCEUR().awaitResponse()
+            val response = api.getBTCBRL().awaitResponse()
             if(response.isSuccessful){
                 for(moeda in response.body()!!){
-                    binding.tvMoedaNome.text = moeda.name
-                    binding.tvMoedaAlta.text = moeda.high
-                    binding.tvMoedaBaixa.text = moeda.low
+                    binding.tvMoedaNome3.text = moeda.name
+                    binding.tvMoedaAlta3.text = moeda.high
+                    binding.tvMoedaBaixa3.text = moeda.low
+                    binding.tvMoedaCompra3.text = moeda.bid
+                    binding.tvMoedaVenda3.text = moeda.ask
+                }
+            }
+
+        }
+    }
+    fun getCotacaoGBPBRL(){
+        val api = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(Endpoint::class.java)
+
+        GlobalScope.launch(Dispatchers.Main){
+            val response = api.getGBPBRL().awaitResponse()
+            if(response.isSuccessful){
+                for(moeda in response.body()!!){
+                    binding.tvMoedaNome4.text = moeda.name
+                    binding.tvMoedaAlta4.text = moeda.high
+                    binding.tvMoedaBaixa4.text = moeda.low
+                    binding.tvMoedaCompra4.text = moeda.bid
+                    binding.tvMoedaVenda4.text = moeda.ask
+
                 }
             }
 

@@ -39,7 +39,7 @@ class DashboardFragment : Fragment(){
         val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_dropdown_item_1line, names)
         binding.etText.setAdapter(adapter)
 
-
+      //  binding.tvTotalLabel.text = viewModel.totalComida.toString()
 
         setup()
         return view
@@ -87,6 +87,7 @@ class DashboardFragment : Fragment(){
         viewModel.totalDespesas.observe(viewLifecycleOwner){
             binding.tvTotalDespesas.text = "Valor total dos gastos: R$: ${"%.2f".format(it).replace(".",",")}"
         }
+
 
     }
 
