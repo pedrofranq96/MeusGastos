@@ -6,14 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".main.ui.DashboardFragment">
 
-    <TextView
-        android:id="@+id/tv_total_label"
+    <Button
+        android:id="@+id/btnCotacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Total"
-        android:textColor="@color/black"
-        android:textSize="18sp"
+        android:text="Moedas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +27,7 @@
         app:layout_constraintBottom_toTopOf="@id/layEt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_total_label" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCotacao" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layEt"
@@ -92,6 +89,8 @@
         app:layout_constraintBottom_toBottomOf="@id/rv_dashboard_despesas"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_24" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

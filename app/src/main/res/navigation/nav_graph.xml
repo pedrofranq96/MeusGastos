@@ -20,10 +20,18 @@
         <action
             android:id="@+id/action_dashboardFragment_to_editarDespesaFragment"
             app:destination="@id/editarDespesaFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_moedasFragment"
+            app:destination="@id/moedasFragment" />
     </fragment>
     <fragment
         android:id="@+id/editarDespesaFragment"
         android:name="br.edu.infnet.meusgastos.main.ui.EditarDespesaFragment"
         android:label="fragment_editar_despesa"
         tools:layout="@layout/fragment_editar_despesa" />
+    <fragment
+        android:id="@+id/moedasFragment"
+        android:name="br.edu.infnet.meusgastos.main.ui.MoedasFragment"
+        android:label="fragment_moedas"
+        tools:layout="@layout/fragment_moedas" />
 </navigation>

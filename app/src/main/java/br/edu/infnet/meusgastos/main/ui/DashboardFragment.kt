@@ -118,7 +118,9 @@ class DashboardFragment : Fragment(){
             imbBuscar.setOnClickListener{
                 atualizaRecyclerViewBusca(binding.etText.text.toString())
             }
-
+            btnCotacao.setOnClickListener{
+                nav(R.id.action_dashboardFragment_to_moedasFragment)
+            }
         }
     }
 
