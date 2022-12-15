@@ -36,6 +36,7 @@ class _MainActivityTest {
             typeText("753951"),
             ViewActions.closeSoftKeyboard()
         )
+        onView(withId(R.id.btn_sign_in)).perform(click())
     }
 
     @Test
