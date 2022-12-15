@@ -46,7 +46,7 @@ class _MainActivityTest {
 
         onView(withId(R.id.btn_sign_on)).perform(click())
 
-        onView(withId(R.id.input_email2)).perform(typeText("teste@instumented.com"), ViewActions.closeSoftKeyboard())
+        onView(withId(R.id.input_email2)).perform(typeText("teste@instumented2.com"), ViewActions.closeSoftKeyboard())
         onView(withId(R.id.input_password2)).perform(typeText("a11111"), ViewActions.closeSoftKeyboard())
         onView(withId(R.id.input_confirm_password2)).perform(typeText("a11111"), ViewActions.closeSoftKeyboard())
         onView(withId(R.id.btn_cadastrar)).perform(click())

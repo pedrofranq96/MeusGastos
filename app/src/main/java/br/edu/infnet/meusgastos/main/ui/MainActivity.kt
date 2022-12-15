@@ -35,8 +35,9 @@ class MainActivity : AppCompatActivity() {
         // on below line we are initializing
         // our image list and adding data to it.
         imageList = ArrayList<Int>()
-        imageList = imageList + R.drawable.tri
-        imageList = imageList + R.drawable.img
+        imageList = imageList + R.drawable.background3
+
+        //imageList = imageList + R.drawable.img
 
 
         // on below line we are initializing our view
