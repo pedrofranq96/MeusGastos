@@ -283,7 +283,7 @@ class MainViewModel : ViewModel() {
 
     /////////////////////////////////////////////////////
 
-    ////////Categorias///////
+    ////////Categorias//////////
      val categoriaLista = mutableListOf<Categoria>(
         Categoria(1, "Comida", R.drawable.cat_comida),
         Categoria(2, "Transporte", R.drawable.cat_transporte),

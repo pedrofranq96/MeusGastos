@@ -3,19 +3,11 @@ package br.edu.infnet.meusgastos
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.viewpager.widget.ViewPager
 import br.edu.infnet.meusgastos.databinding.ActivityHomeBinding
 import br.edu.infnet.meusgastos.login.ui.LoginActivity
 import br.edu.infnet.meusgastos.main.ui.*
-import br.edu.infnet.meusgastos.utils.navUp
-import br.edu.infnet.meusgastos.utils.toast
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
 
 class HomeActivity : AppCompatActivity() {
 
@@ -36,12 +28,36 @@ class HomeActivity : AppCompatActivity() {
 
         binding.tvUserEmail.text = viewModel.getCurrentUserEmail()
 
-        MobileAds.initialize(this) {}
-        val adRequest = AdRequest.Builder().build()
-        binding.adView.loadAd(adRequest)
+        binding.bottomNavigationView.setOnItemSelectedListener {
+
+            when(it.itemId){
+
+                R.id.home -> replaceFragment(DashboardFragment())
+                R.id.moedas -> replaceFragment(MoedasFragment())
+                R.id.resumo -> replaceFragment(ResumoFragment())
+                else ->{
+                    throw Exception("Erro durante a navegação!")
+                }
+
+            }
+
+            true
+        }
+       // MobileAds.initialize(this) {}
+       // val adRequest = AdRequest.Builder().build()
+       // binding.adView.loadAd(adRequest)
 
 //        setupViewPager(binding.tabViewpager)
 //        setSupportActionBar()
+
+    }
+
+    private fun replaceFragment(fragment: Fragment){
+
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction =  fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentContainerView, fragment)
+        fragmentTransaction.commit()
 
     }
 
@@ -91,9 +107,6 @@ class HomeActivity : AppCompatActivity() {
 //            fragmentTitleList1.add(title)
 //        }
 //    }
-
-
-
 
 
     private fun startLoginActivity() {
