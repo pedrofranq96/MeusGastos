@@ -6,7 +6,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.infnet.meusgastos.HomeActivity
 import br.edu.infnet.meusgastos.databinding.ActivityLoginBinding
-import br.edu.infnet.meusgastos.main.ui.MainActivity
 
 class LoginActivity : AppCompatActivity(){
 
@@ -16,6 +15,7 @@ class LoginActivity : AppCompatActivity(){
     // Usar a vinculação de visualizações em atividades
     // https://developer.android.com/topic/libraries/view-binding?hl=pt-br#activities
     private lateinit var binding: ActivityLoginBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

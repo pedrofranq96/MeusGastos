@@ -20,4 +20,12 @@
     <string name="title_activity_tabbed">TabbedActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="pular_btn">Pular</string>
+    <string name="e_mail">E-mail</string>
+    <string name="senha">Senha</string>
+    <string name="lembrar_de_mim">Lembrar de mim</string>
+    <string name="login">Login</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="confirmar_senha">Confirmar Senha</string>
+    <string name="avatarDesc">Boneco de usuário desenhado</string>
 </resources>

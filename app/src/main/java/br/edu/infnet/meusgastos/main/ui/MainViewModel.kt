@@ -1,10 +1,12 @@
 package br.edu.infnet.meusgastos.main.ui
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.edu.infnet.meusgastos.R
+import br.edu.infnet.meusgastos.login.ui.DataStoreManager
 import br.edu.infnet.meusgastos.models.Categoria
 import br.edu.infnet.meusgastos.models.Despesa
 import br.edu.infnet.meusgastos.models.DespesaComId
@@ -14,10 +16,12 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.toObject
 
+//TODO Verificar a transição pro dataStore e a questão do context necessário pra declarar ele
 class MainViewModel : ViewModel() {
 
     val TAG = "ViewModel"
     val repository = DespesasRepository.get()
+    //val dataStore = DataStoreManager()
 
     private val _totalDespesas = MutableLiveData<Float>(0.0F)
     val totalDespesas : LiveData<Float> = _totalDespesas

@@ -28,18 +28,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/logoutBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/secondaryColor"
-                android:contentDescription="@string/logout"
-                android:minHeight="48dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/app_toolbar"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_logout"
-                app:tint="@color/white" />
+
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -53,18 +42,32 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_userEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="EMAIL"
-                android:textSize="14sp"
-                android:textColor="@color/white"
+            <ImageView
+                android:id="@+id/Iv_userEmail"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:backgroundTint="@color/secondaryColor"
+                android:contentDescription="@string/avatarDesc"
+                android:src="@drawable/ic_person_pin"
+                android:layout_marginStart="120dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/logoutBtn"
                 app:layout_constraintStart_toEndOf="@+id/toolbar_title"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
 
+            <ImageButton
+                android:id="@+id/logoutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/secondaryColor"
+                android:contentDescription="@string/logout"
+                android:minHeight="48dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/app_toolbar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_logout"
+                app:tint="@color/white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -76,14 +79,13 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
         android:layout_margin="4dp"
         app:defaultNavHost="true"
-
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+
         app:navGraph="@navigation/nav_graph" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

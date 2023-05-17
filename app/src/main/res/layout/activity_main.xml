@@ -30,6 +30,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
 
-        android:text="Pular" />
+        android:text="@string/pular_btn" />
 
 </RelativeLayout>

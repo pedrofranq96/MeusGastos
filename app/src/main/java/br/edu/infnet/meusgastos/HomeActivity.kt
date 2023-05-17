@@ -2,39 +2,42 @@ package br.edu.infnet.meusgastos
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import br.edu.infnet.meusgastos.databinding.ActivityHomeBinding
 import br.edu.infnet.meusgastos.login.ui.LoginActivity
 import br.edu.infnet.meusgastos.main.ui.*
+import br.edu.infnet.meusgastos.utils.toast
+import br.edu.infnet.meusgastos.utils.nav
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    val viewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModels<MainViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
+
         val view = binding.root
+        setupClickListeners()
         setContentView(view)
 
-        binding.logoutBtn.setOnClickListener{
-            viewModel.logout()
-            startLoginActivity()
-        }
-
-        binding.tvUserEmail.text = viewModel.getCurrentUserEmail()
 
         binding.bottomNavigationView.setOnItemSelectedListener {
 
             when(it.itemId){
 
-                R.id.home -> replaceFragment(DashboardFragment())
-                R.id.moedas -> replaceFragment(MoedasFragment())
-                R.id.resumo -> replaceFragment(ResumoFragment())
+                R.id.home -> navController.navigate(R.id.dashboardFragment)
+                R.id.moedas -> navController.navigate(R.id.moedasFragment)
+                R.id.resumo -> navController.navigate(R.id.resumoFragment)
                 else ->{
                     throw Exception("Erro durante a navegação!")
                 }
@@ -52,14 +55,27 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    private fun replaceFragment(fragment: Fragment){
 
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction =  fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentContainerView, fragment)
-        fragmentTransaction.commit()
+    private fun setupClickListeners() {
+        binding.apply {
+            logoutBtn.setOnClickListener{
+                viewModel.logout()
+                startLoginActivity()
+            }
+            IvUserEmail.setOnClickListener {
+                Toast.makeText(this@HomeActivity, viewModel.getCurrentUserEmail(), Toast.LENGTH_SHORT).show()
+            }
 
+            //            button.setOnClickListener{
+//                lifecycleScope.launch {
+//                    val key = "rememberKey"
+//                    testeds.text = readData(key)
+//
+//                }
+//            }
+        }
     }
+
 
 //    // This function is used to add items in arraylist and assign
 //    // the adapter to view pager

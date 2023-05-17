@@ -1,13 +1,19 @@
 package br.edu.infnet.meusgastos.main.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.edu.infnet.meusgastos.R
 import br.edu.infnet.meusgastos.databinding.FragmentDashboardBinding
@@ -15,7 +21,11 @@ import br.edu.infnet.meusgastos.main.ui.adapters.DespesaComIdAdapter
 import br.edu.infnet.meusgastos.main.ui.adapters.DespesaComIdListener
 import br.edu.infnet.meusgastos.models.DespesaComId
 import br.edu.infnet.meusgastos.utils.nav
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
+//DataStore ReadData funcionando e salvando o email corretamente - ln 138-142
+//TODO: remover o botão e o readData() utilizado apenas para testes, remover também do arquivo .xml
 
 class DashboardFragment : Fragment(){
 
@@ -26,6 +36,8 @@ class DashboardFragment : Fragment(){
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val Context.myDataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +58,11 @@ class DashboardFragment : Fragment(){
     }
 
 
+    private suspend fun readData(key: String): String?{
+        val prefsKey = stringPreferencesKey(key)
+        val prefs = context?.myDataStore?.data?.first()
+        return prefs?.get(prefsKey)
+    }
 
     private fun setup() {
         setupViews()
@@ -87,8 +104,6 @@ class DashboardFragment : Fragment(){
         viewModel.totalDespesas.observe(viewLifecycleOwner){
             binding.tvTotalDespesas.text = "Valor total dos gastos: R$: ${"%.2f".format(it).replace(".",",")}"
         }
-
-
     }
 
     fun atualizaRecyclerView(lista: List<DespesaComId>?) {
@@ -119,9 +134,13 @@ class DashboardFragment : Fragment(){
             imbBuscar.setOnClickListener{
                 atualizaRecyclerViewBusca(binding.etText.text.toString())
             }
-            btnCotacao.setOnClickListener{
-                nav(R.id.action_dashboardFragment_to_moedasFragment)
-            }
+//            button.setOnClickListener{
+//                lifecycleScope.launch {
+//                    val key = "rememberKey"
+//                    testeds.text = readData(key)
+//
+//                }
+//            }
         }
     }
 
