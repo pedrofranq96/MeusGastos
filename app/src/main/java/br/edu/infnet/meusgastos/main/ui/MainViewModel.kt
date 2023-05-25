@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.edu.infnet.meusgastos.R
 import br.edu.infnet.meusgastos.models.Categoria
+import br.edu.infnet.meusgastos.models.CategoriaTotal
 import br.edu.infnet.meusgastos.models.Despesa
 import br.edu.infnet.meusgastos.models.DespesaComId
 import br.edu.infnet.meusgastos.repository.DespesasRepository
@@ -13,6 +14,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.toObject
+import java.util.*
 
 //TODO Verificar a transição pro dataStore e a questão do context necessário pra declarar ele
 //TODO realizar o total para cada categoria
@@ -380,14 +382,35 @@ class MainViewModel : ViewModel() {
 
     fun getListaPorCategoria(string: String): List<DespesaComId>{
         return despesasComId.value?.filter {
-            it.categoriaNome.contains(string.capitalize())
+            it.categoriaNome.contains(string.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(
+                    Locale.getDefault()
+                ) else it.toString()
+            })
         }?: emptyList()
     }
+
+    fun getListaTotalPorCategoria(categorias: List<Categoria>): List<CategoriaTotal>{
+
+        val lista = mutableListOf<CategoriaTotal>()
+
+        categorias.forEach { categoria ->
+            val totalPercent = totalPorNomeCategoria(categoria.nome) * 100 / totalDespesas.value!!
+            val totalCategoria = CategoriaTotal(categoria.id ,categoria.nome, categoria.imagem, totalPorNomeCategoria(categoria.nome), totalPercent )
+
+            lista.add(totalCategoria)
+        }
+
+        Log.i("ListaTotal", lista.toString())
+        return lista
+    }
+
 
 
     init {
         observerColecaoDespesas()
         categorias.value = categoriaLista
+        //Log.i("ListaTotal", getListaTotalPorCategoria(categoriaLista).toString())
         //somaValorTotalDespesas()
 
     }

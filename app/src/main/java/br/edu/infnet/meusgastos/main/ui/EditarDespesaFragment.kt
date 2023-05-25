@@ -157,9 +157,9 @@ class EditarDespesaFragment : Fragment() {
 
     fun onDatePickerClick() {
         val cal = Calendar.getInstance()
-
         // Interface passada para dentro do DatePickerDialog que recupera a data selecionada:
         val dateSetListener =
+
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
@@ -176,6 +176,7 @@ class EditarDespesaFragment : Fragment() {
         val datePicker =
             DatePickerDialog(
                 requireContext(),
+
                 //android.R.style.Theme_Holo_Light_Dialog,
                 dateSetListener,
                 cal.get(Calendar.YEAR),
