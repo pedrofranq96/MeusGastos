@@ -104,6 +104,9 @@ class DashboardFragment : Fragment(){
         viewModel.totalDespesas.observe(viewLifecycleOwner){
             binding.tvTotalDespesas.text = "Valor total dos gastos: R$: ${"%.2f".format(it).replace(".",",")}"
         }
+        viewModel.valorTotalPresente.observe(viewLifecycleOwner){
+            binding.testeds.text = it.toString()
+        }
     }
 
     fun atualizaRecyclerView(lista: List<DespesaComId>?) {

@@ -1,12 +1,10 @@
 package br.edu.infnet.meusgastos.main.ui
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.edu.infnet.meusgastos.R
-import br.edu.infnet.meusgastos.login.ui.DataStoreManager
 import br.edu.infnet.meusgastos.models.Categoria
 import br.edu.infnet.meusgastos.models.Despesa
 import br.edu.infnet.meusgastos.models.DespesaComId
@@ -17,6 +15,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.toObject
 
 //TODO Verificar a transição pro dataStore e a questão do context necessário pra declarar ele
+//TODO realizar o total para cada categoria
 class MainViewModel : ViewModel() {
 
     val TAG = "ViewModel"
@@ -27,6 +26,135 @@ class MainViewModel : ViewModel() {
     val totalDespesas : LiveData<Float> = _totalDespesas
     fun setTotalDespesas(value: Float){
         _totalDespesas.postValue(value)
+    }
+
+    //TODO: Fun novas aqui
+
+    fun setTotalCategoria(totalCategoria: MutableLiveData<Float> ,value: Float){
+        totalCategoria.postValue(value)
+    }
+
+    private val _totalComida = MutableLiveData<Float>(0.0F)
+    val valorTotalComida : LiveData<Float> = _totalComida
+
+    private val _totalTransporte = MutableLiveData<Float>(0.0F)
+    val valorTotalTransporte : LiveData<Float> = _totalTransporte
+
+    private val _totalContas = MutableLiveData<Float>(0.0F)
+    val valorTotalContas : LiveData<Float> = _totalContas
+
+    private val _totalLazer = MutableLiveData<Float>(0.0F)
+    val valorTotalLazer : LiveData<Float> = _totalLazer
+
+    private val _totalCompras = MutableLiveData<Float>(0.0F)
+    val valorTotalCompras : LiveData<Float> = _totalCompras
+
+    private val _totalMercado = MutableLiveData<Float>(0.0F)
+    val valorTotalMercado : LiveData<Float> = _totalMercado
+
+    private val _totalCartao = MutableLiveData<Float>(0.0F)
+    val valorTotalCartao : LiveData<Float> = _totalCartao
+
+    private val _totalEducacao = MutableLiveData<Float>(0.0F)
+    val valorTotalEducacao : LiveData<Float> = _totalEducacao
+
+    private val _totalPets = MutableLiveData<Float>(0.0F)
+    val valorTotalPets : LiveData<Float> = _totalPets
+
+    private val _totalPresente = MutableLiveData<Float>(0.0F)
+    val valorTotalPresente : LiveData<Float> = _totalPresente
+
+    private val _totalRoupas = MutableLiveData<Float>(0.0F)
+    val valorTotalRoupas : LiveData<Float> = _totalRoupas
+
+    private val _totalSaude = MutableLiveData<Float>(0.0F)
+    val valorTotalSaude : LiveData<Float> = _totalSaude
+
+    private val _totalViagem = MutableLiveData<Float>(0.0F)
+    val valorTotalViagem : LiveData<Float> = _totalViagem
+
+    private val _totalOutros = MutableLiveData<Float>(0.0F)
+    val valorTotalOutros : LiveData<Float> = _totalOutros
+
+
+    fun calculaValorTotalCategoria(lista: List<DespesaComId>){
+
+        var valorComida = 0.0F
+        var valorTransporte = 0.0F
+        var valorContas = 0.0F
+        var valorLazer = 0.0F
+        var valorCompras = 0.0F
+        var valorMercado = 0.0F
+        var valorCartao = 0.0F
+        var valorEducacao = 0.0F
+        var valorPets = 0.0F
+        var valorPresente = 0.0F
+        var valorRoupas = 0.0F
+        var valorSaude = 0.0F
+        var valorViagem = 0.0F
+        var valorOutros = 0.0F
+
+        lista.forEach { despesa ->
+            when (despesa.categoriaNome) {
+                "Comida" -> valorComida += despesa.valor
+                "Transporte" -> valorTransporte += despesa.valor
+                "Contas" -> valorContas += despesa.valor
+                "Lazer" -> valorLazer += despesa.valor
+                "Compras" -> valorCompras += despesa.valor
+                "Mercado" -> valorMercado += despesa.valor
+                "Cartao" -> valorCartao += despesa.valor
+                "Educacao" -> valorEducacao += despesa.valor
+                "Pets" -> valorPets += despesa.valor
+                "Presente" -> valorPresente += despesa.valor
+                "Roupas" -> valorRoupas += despesa.valor
+                "Saude" -> valorSaude += despesa.valor
+                "Viagem" -> valorViagem += despesa.valor
+                "Outros" -> valorOutros += despesa.valor
+            }
+            //Testar o setTotalCategoria aqui e na proxima }
+
+        }
+
+        //TODO testar cada total no LOG.i
+
+        setTotalCategoria(_totalComida, valorComida)
+        setTotalCategoria(_totalTransporte, valorTransporte)
+        setTotalCategoria(_totalContas, valorContas)
+        setTotalCategoria(_totalLazer, valorLazer)
+        setTotalCategoria(_totalCompras, valorCompras)
+        setTotalCategoria(_totalMercado, valorMercado)
+        setTotalCategoria(_totalCartao, valorCartao)
+        setTotalCategoria(_totalEducacao, valorEducacao)
+        setTotalCategoria(_totalPets, valorPets)
+        setTotalCategoria(_totalPresente, valorPresente)
+        setTotalCategoria(_totalRoupas, valorRoupas)
+        setTotalCategoria(_totalSaude, valorSaude)
+        setTotalCategoria(_totalViagem, valorViagem)
+        setTotalCategoria(_totalOutros, valorOutros)
+
+        //TODO retirar logs depois 20/05
+        Log.i("ValorTotalContas:", valorTotalContas.toString())
+        Log.i("ValorTotalPresente:", valorTotalPresente.toString())
+    }
+
+    fun totalPorNomeCategoria(nomeCategoria: String): Float {
+        when (nomeCategoria) {
+            "Comida" -> return valorTotalComida.value!!
+            "Transporte" -> return valorTotalTransporte.value!!
+            "Contas" -> return valorTotalContas.value!!
+            "Lazer" -> return valorTotalLazer.value!!
+            "Compras" -> return valorTotalCompras.value!!
+            "Mercado" -> return valorTotalMercado.value!!
+            "Cartao" -> return valorTotalCartao.value!!
+            "Educacao" -> return valorTotalEducacao.value!!
+            "Pets" -> return valorTotalPets.value!!
+            "Presente" -> return valorTotalPresente.value!!
+            "Roupas" -> return valorTotalRoupas.value!!
+            "Saude" -> return valorTotalSaude.value!!
+            "Viagem" -> return valorTotalViagem.value!!
+            "Outros" -> return valorTotalOutros.value!!
+        }
+        return 0.0F
     }
 
     fun getCurrentUserEmail(): String {
@@ -212,7 +340,7 @@ class MainViewModel : ViewModel() {
     fun setDespesaComId(value : List<DespesaComId>){
         _despesasComId.postValue(value)
         setTotalDespesas(calculaValorTotal(value))
-        totalComida = calculaValorTotalPorCategoria("Comida")
+        calculaValorTotalCategoria(value)
     }
 
 
@@ -223,64 +351,6 @@ class MainViewModel : ViewModel() {
             valorfinal += despesa.valor
             Log.i(TAG, valorfinal.toString())
         }
-        return valorfinal
-
-    }
-
-    fun setTotalPorCategoria(){
-
-        val listaCategorias = listOf<String>("Comida", "Transporte", "Contas", "Lazer", "Compras", "Mercado", "Cartão", "Educação", "Pets", "Presente", "Roupas", "Saúde", "Viagem", "Outros")
-        listaCategorias.forEach {
-           // Log.i("ListaCategorias", it)
-          //  calculaValorTotalPorCategoria()
-        }
-    }
-
-    var totalComida = 0.0F
-    var totalTransporte = 0.0F
-    var totalContas = 0.0F
-    var totalLazer = 0.0F
-    var totalCompras = 0.0F
-    var totalMercado = 0.0F
-    var totalCartao = 0.0F
-    var totalEducacao = 0.0F
-    var totalPets = 0.0F
-    var totalPresente = 0.0F
-    var totalRoupas = 0.0F
-    var totalSaude = 0.0F
-    var totalViagem = 0.0F
-    var totalOutros = 0.0F
-
-//    fun calculaValorTotalPorCategoria(
-//        lista: List<DespesaComId>,
-//    categoriaInput: String): Float{
-//
-//        var valorfinal = 0.0F
-//        lista.filter { it.categoriaNome == categoriaInput }
-//            .forEach { despesa ->
-//            valorfinal += despesa.valor
-//            Log.i(TAG, valorfinal.toString())
-//        }
-//        return valorfinal
-//
-//    }
-
-    fun calculaValorTotalPorCategoria(
-        categoriaInput: String): Float{
-
-        val mutableList = mutableListOf<DespesaComId>()
-
-        listOf<DespesaComId>()
-        despesasComId.value?.forEach {
-            mutableList.add(it)
-        }
-
-        var valorfinal = 0.0F
-        mutableList.filter { it.categoriaNome == categoriaInput }
-            .forEach { despesa ->
-                valorfinal += despesa.valor
-                Log.i(TAG, valorfinal.toString())
-            }
         return valorfinal
 
     }
@@ -306,8 +376,6 @@ class MainViewModel : ViewModel() {
 
     )
     val categorias = MutableLiveData<List<Categoria>>()
-    private val _textoCompartilhado = MutableLiveData<String>("")
-   // val textoCompartilhado: LiveData<String> = _textoCompartilhado
 
 
     fun getListaPorCategoria(string: String): List<DespesaComId>{
@@ -316,13 +384,6 @@ class MainViewModel : ViewModel() {
         }?: emptyList()
     }
 
-    fun somaValorTotalDespesas(){
-
-        despesasComId.value?.forEach {
-            Log.i(TAG, it.nome)
-        }
-
-    }
 
     init {
         observerColecaoDespesas()
