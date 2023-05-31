@@ -1,5 +1,4 @@
 *.iml
-.gradle
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
@@ -11,7 +10,7 @@
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+
 
 
 # Built application files

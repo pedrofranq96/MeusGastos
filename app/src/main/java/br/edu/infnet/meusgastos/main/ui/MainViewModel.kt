@@ -16,7 +16,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ktx.toObject
 import java.util.*
 
-//TODO Verificar a transição pro dataStore e a questão do context necessário pra declarar ele
+//TODO Verificar a transição pro dataStore e a questão do context necessário pra declar[ar ele
 //TODO realizar o total para cada categoria
 class MainViewModel : ViewModel() {
 
@@ -78,6 +78,18 @@ class MainViewModel : ViewModel() {
     private val _totalOutros = MutableLiveData<Float>(0.0F)
     val valorTotalOutros : LiveData<Float> = _totalOutros
 
+    val _valoresChart = mutableListOf(valorTotalComida.value,valorTotalTransporte.value, valorTotalContas.value,valorTotalLazer.value,valorTotalCompras.value,valorTotalMercado.value,valorTotalCartao.value,valorTotalEducacao.value,valorTotalPets.value,valorTotalPresente.value,valorTotalRoupas.value,valorTotalSaude.value,valorTotalViagem.value,valorTotalOutros.value)
+
+
+    var valoresChart = MutableLiveData<MutableList<Float?>>()
+    fun lala(lista: MutableList<Float?>){
+        if (lista.isEmpty() == false){
+            valoresChart.postValue(lista)
+        }else{
+            Log.i("lala","valoresChart lista vazia")
+        }
+
+    }
 
     fun calculaValorTotalCategoria(lista: List<DespesaComId>){
 
@@ -339,10 +351,12 @@ class MainViewModel : ViewModel() {
 
     private val _despesasComId = MutableLiveData<List<DespesaComId>>()
     val despesasComId : LiveData<List<DespesaComId>> = _despesasComId
+
     fun setDespesaComId(value : List<DespesaComId>){
         _despesasComId.postValue(value)
         setTotalDespesas(calculaValorTotal(value))
         calculaValorTotalCategoria(value)
+
     }
 
 
@@ -366,15 +380,15 @@ class MainViewModel : ViewModel() {
         Categoria(3, "Contas", R.drawable.cat_contas),
         Categoria(4, "Lazer", R.drawable.cat_lazer),
         Categoria(5, "Compras", R.drawable.cat_compras),
-        Categoria(7, "Mercado", R.drawable.cat_mercado),
-        Categoria(8, "Cartão", R.drawable.cat_cartao),
-        Categoria(9, "Educação", R.drawable.cat_educacao),
-        Categoria(10, "Pets", R.drawable.cat_pets),
-        Categoria(11, "Presente", R.drawable.cat_presente),
-        Categoria(12, "Roupas", R.drawable.cat_roupas),
-        Categoria(13, "Saúde", R.drawable.cat_saude),
-        Categoria(14, "Viagem", R.drawable.cat_viagem),
-        Categoria(15, "Outros", R.drawable.cat_outros),
+        Categoria(6, "Mercado", R.drawable.cat_mercado),
+        Categoria(7, "Cartão", R.drawable.cat_cartao),
+        Categoria(8, "Educação", R.drawable.cat_educacao),
+        Categoria(9, "Pets", R.drawable.cat_pets),
+        Categoria(10, "Presente", R.drawable.cat_presente),
+        Categoria(11, "Roupas", R.drawable.cat_roupas),
+        Categoria(12, "Saúde", R.drawable.cat_saude),
+        Categoria(13, "Viagem", R.drawable.cat_viagem),
+        Categoria(14, "Outros", R.drawable.cat_outros),
 
     )
     val categorias = MutableLiveData<List<Categoria>>()
@@ -390,6 +404,7 @@ class MainViewModel : ViewModel() {
         }?: emptyList()
     }
 
+    //TODO criar nova para retornar um mutableListOf<Float> com os valores listados na ordem do header do ChartFragment
     fun getListaTotalPorCategoria(categorias: List<Categoria>): List<CategoriaTotal>{
 
         val lista = mutableListOf<CategoriaTotal>()
@@ -404,12 +419,28 @@ class MainViewModel : ViewModel() {
         Log.i("ListaTotal", lista.toString())
         return lista
     }
+    fun getListaTotalPorCategoriaFloat(categorias: List<Categoria>): MutableList<Float>{
+
+        val lista = mutableListOf<Float>()
+
+        categorias.forEach { categoria ->
+            val valorCategoria = totalPorNomeCategoria(categoria.nome)
+//            val totalPercent = totalPorNomeCategoria(categoria.nome) * 100 / totalDespesas.value!!
+//            val totalCategoria = CategoriaTotal(categoria.id ,categoria.nome, categoria.imagem, totalPorNomeCategoria(categoria.nome), totalPercent )
+
+            lista.add(valorCategoria)
+        }
+
+        Log.i("ListaTotal", lista.toString())
+        return lista
+    }
 
 
 
     init {
         observerColecaoDespesas()
         categorias.value = categoriaLista
+        lala(_valoresChart)
         //Log.i("ListaTotal", getListaTotalPorCategoria(categoriaLista).toString())
         //somaValorTotalDespesas()
 

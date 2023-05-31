@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".main.ui.ResumoFragment">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,6 +20,7 @@
                     android:fontFamily="sans-serif-condensed-light"
                     android:gravity="center"
                     />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,6 +59,7 @@
                             android:layout_weight="1"
                             />
                 </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/Rv_totalCategorias"
                     android:layout_width="match_parent"

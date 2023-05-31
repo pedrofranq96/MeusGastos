@@ -6,14 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import br.edu.infnet.meusgastos.R
 import br.edu.infnet.meusgastos.databinding.FragmentMoedasBinding
 import br.edu.infnet.meusgastos.main.ui.api.Endpoint
-import br.edu.infnet.meusgastos.models.Moeda
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
@@ -35,6 +32,8 @@ class MoedasFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentMoedasBinding.inflate(inflater, container, false)
         val view = binding.root
+        Log.i(TAG,"MoedasFragmennt Iniciado")
+
         return view
     }
 

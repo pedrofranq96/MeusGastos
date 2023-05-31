@@ -26,6 +26,10 @@
         <action
             android:id="@+id/action_dashboardFragment_to_resumoFragment"
             app:destination="@id/resumoFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_chartFragment"
+            app:destination="@+id/chartFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/editarDespesaFragment"
@@ -42,4 +46,9 @@
         android:name="br.edu.infnet.meusgastos.main.ui.ResumoFragment"
         android:label="fragment_resumo"
         tools:layout="@layout/fragment_resumo" />
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="br.edu.infnet.meusgastos.ChartFragment"
+        android:label="fragment_chart"
+        tools:layout="@layout/fragment_chart" />
 </navigation>

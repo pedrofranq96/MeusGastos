@@ -38,6 +38,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.home -> navController.navigate(R.id.dashboardFragment)
                 R.id.moedas -> navController.navigate(R.id.moedasFragment)
                 R.id.resumo -> navController.navigate(R.id.resumoFragment)
+                R.id.grafico -> navController.navigate(R.id.chartFragment)
                 else ->{
                     throw Exception("Erro durante a navegação!")
                 }

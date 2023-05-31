@@ -13,5 +13,9 @@
         android:id="@+id/resumo"
         android:icon="@drawable/ic_receipt"
         />
+    <item android:title="Gráfico"
+        android:id="@+id/grafico"
+        android:icon="@drawable/ic_chart_24"
+        />
 
 </menu>
